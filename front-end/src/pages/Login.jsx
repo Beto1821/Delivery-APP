@@ -5,10 +5,13 @@ import GenericInput from '../components/Input';
 import LoginContext from '../context/LoginContext';
 import userLogin from '../service/requests';
 import ErrorMessage from '../components/ErrorMessage';
+import useLocalStorage from '../hooks/useLocalStorage';
+import decryptToken from '../utils/decryptToken';
 
 function Login() {
   const { email, setEmail, password, setPassword } = useContext(LoginContext);
   const [response, setResponse] = useState({});
+  const [, setUser] = useLocalStorage('user', undefined);
   const emailPattern = /\S+@\S+\.\S+/;
   const NUM = 6;
 
@@ -16,9 +19,14 @@ function Login() {
 
   const handleButton = async (e) => {
     e.preventDefault();
-    const result = await userLogin({ email, password });
-    setResponse(result);
-    console.log(result);
+    const { data } = await userLogin({ email, password });
+    if (data.token) {
+      const { token } = data;
+      const userInfo = decryptToken(token);
+      // administrator, customer, seller
+      setUser({ ...userInfo, token });
+    }
+    setResponse(data);
   };
 
   return (
@@ -58,7 +66,7 @@ function Login() {
       </Link>
       <ErrorMessage
         dataTest="common_login__element-invalid-email"
-        message={ response.data?.message }
+        message={ response.message }
       />
     </form>
   );
