@@ -1,17 +1,22 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import LoginProvider from './context/LoginProvider';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Products from './pages/ProductsList';
 
+// function RedirectToLogin() {
+//   return <Redirect to="/login" />;
+// }
+
 function App() {
   return (
     <LoginProvider>
       <Switch>
-        <Route exact path="/" component={ Login } />
+        <Route exact path="/login" component={ Login } />
         <Route exact path="/register" component={ Register } />
         <Route path="custumer/products" component={ Products } />
+        <Redirect from="/" to="/login" />
         {/* <Route path="custumer/checkout" component={ Checkout } />
         <Route path="customer/orders/:id" component={ OrderDetails } />
         <Route path="customer/orders/" component={ Orders } />
