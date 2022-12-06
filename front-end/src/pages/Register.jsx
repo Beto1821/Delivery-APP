@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import Button from '../components/Button';
 import GenericInput from '../components/Input';
 
@@ -15,9 +16,20 @@ function Register() {
   const minName = 12;
   const emailPattern = /\S+@\S+\.\S+/;
   const minPassword = 6;
+  const history = useHistory();
 
   const disabledBtn = () => !(
     name.length >= minName && emailPattern.test(email) && password.length >= minPassword);
+
+  const register = async (event) => {
+    event.preventDefault();
+    const { data } = await postRegister({ name, email, password });
+    console.log(data);
+    if (data.token) {
+      history.push('/customer/products');
+      console.log(token);
+    }
+  };
 
   return (
     <form>
@@ -61,6 +73,7 @@ function Register() {
         name="register"
         disabled={ disabledBtn() }
         text="Cadastrar"
+        onClick={ register }
       />
     </form>
   );
