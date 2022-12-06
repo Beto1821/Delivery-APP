@@ -4,6 +4,7 @@ import Button from '../components/Button';
 import GenericInput from '../components/Input';
 import LoginContext from '../context/LoginContext';
 import userLogin from '../service/requests';
+import ErrorMessage from '../components/ErrorMessage';
 
 function Login() {
   const { email, setEmail, password, setPassword } = useContext(LoginContext);
@@ -55,13 +56,10 @@ function Login() {
           text="Ainda não tenho conta"
         />
       </Link>
-      { response.data?.message && (
-        <p
-          data-testid="common_login__element-invalid-email"
-        >
-          { response.data?.message || '' }
-        </p>
-      ) }
+      <ErrorMessage
+        dataTest="common_login__element-invalid-email"
+        message={ response.data?.message }
+      />
     </form>
   );
 }
