@@ -7,16 +7,16 @@ import userLogin from '../service/requests';
 
 function Login() {
   const { email, setEmail, password, setPassword } = useContext(LoginContext);
+  const [response, setResponse] = useState({});
   const emailPattern = /\S+@\S+\.\S+/;
   const NUM = 6;
-  const [isDisabled] = useState(false);
 
   const disabledBtn = () => !(emailPattern.test(email) && password.length >= NUM);
 
   const handleButton = async (e) => {
     e.preventDefault();
     const result = await userLogin({ email, password });
-
+    setResponse(result);
     console.log(result);
   };
 
@@ -39,7 +39,6 @@ function Login() {
         placeholder="Min. 6 digítos"
         setter={ setPassword }
       />
-
       <Button
         dataTestId="common_login__button-login"
         type="submit"
@@ -53,10 +52,16 @@ function Login() {
           dataTestId="common_login__button-register"
           type="submit"
           name="register"
-          disabled={ isDisabled }
           text="Ainda não tenho conta"
         />
       </Link>
+      { response.data?.message && (
+        <p
+          data-testid="common_login__element-invalid-email"
+        >
+          { response.data?.message || '' }
+        </p>
+      ) }
     </form>
   );
 }

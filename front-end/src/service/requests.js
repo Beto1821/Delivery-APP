@@ -8,6 +8,6 @@ export default async function userLogin({ email, password }) {
     });
     return response;
   } catch (error) {
-    return error;
+    return error.response;
   }
 }
