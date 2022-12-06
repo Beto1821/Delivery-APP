@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import Button from '../components/Button';
 import GenericInput from '../components/Input';
 import LoginContext from '../context/LoginContext';
@@ -11,11 +11,31 @@ import decryptToken from '../utils/decryptToken';
 function Login() {
   const { email, setEmail, password, setPassword } = useContext(LoginContext);
   const [response, setResponse] = useState({});
+  const history = useHistory();
   const [, setUser] = useLocalStorage('user', undefined);
   const emailPattern = /\S+@\S+\.\S+/;
   const NUM = 6;
 
   const disabledBtn = () => !(emailPattern.test(email) && password.length >= NUM);
+
+  const loginRedirect = (role) => {
+    switch (role) {
+    case 'customer':
+      history.push('/customer/products');
+      break;
+
+    case 'seller':
+      history.push('/seller/orders/');
+      break;
+
+    case 'administrator':
+      history.push('/admin/manage');
+      break;
+
+    default:
+      break;
+    }
+  };
 
   const handleButton = async (e) => {
     e.preventDefault();
@@ -23,10 +43,11 @@ function Login() {
     if (data.token) {
       const { token } = data;
       const userInfo = decryptToken(token);
-      // administrator, customer, seller
       setUser({ ...userInfo, token });
+      loginRedirect(userInfo.role);
+    } else {
+      setResponse(data);
     }
-    setResponse(data);
   };
 
   return (
