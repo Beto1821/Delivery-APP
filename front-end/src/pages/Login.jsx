@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import Button from '../components/Button';
 import GenericInput from '../components/Input';
@@ -8,7 +8,6 @@ function Login() {
   const { email, setEmail, password, setPassword } = useContext(LoginContext);
   const emailPattern = /\S+@\S+\.\S+/;
   const NUM = 6;
-  const [isDisabled] = useState(false);
 
   const disabledBtn = () => !(emailPattern.test(email) && password.length >= NUM);
 
@@ -18,18 +17,22 @@ function Login() {
         testId="common_login__input-email"
         type="email"
         input={ email }
-        name="Login"
+        name="email"
         placeholder="example@example.com"
         setter={ setEmail }
+        fieldName="Email:"
+        selector="email"
       />
 
       <GenericInput
         testId="common_login__input-password"
         type="password"
         input={ password }
-        name="Senha"
-        placeholder="Min. 6 digítos"
+        name="password"
+        placeholder="******"
         setter={ setPassword }
+        fieldName="Password:"
+        selector="password"
       />
 
       <Button
@@ -44,7 +47,6 @@ function Login() {
           dataTestId="common_login__button-register"
           type="submit"
           name="register"
-          disabled={ isDisabled }
           text="Ainda não tenho conta"
         />
       </Link>
