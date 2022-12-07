@@ -1,28 +1,30 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import LoginProvider from './context/LoginProvider';
-import DataProvider from './context/DataProvider';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import Products from './pages/ProductsList';
+
+// function RedirectToLogin() {
+//   return <Redirect to="/login" />;
+// }
 
 function App() {
   return (
-    <Switch>
-      <LoginProvider>
-        <Route exact path="/" component={ Login } />
-        <Route path="/login" component={ Login } />
-        <Route path="/register" component={ Register } />
-      </LoginProvider>
-      <DataProvider>
+    <LoginProvider>
+      <Switch>
+        <Route exact path="/login" component={ Login } />
+        <Route exact path="/register" component={ Register } />
+        <Route path="/customer/products" component={ Products } />
+        <Redirect from="/" to="/login" />
+        {/* <Route path="custumer/checkout" component={ Checkout } />
+        <Route path="customer/orders/:id" component={ OrderDetails } />
+        <Route path="customer/orders/" component={ Orders } />
         <Route path="/seller/orders/:id" component={ SellerOrderDetails } />
         <Route path="/seller/orders/" component={ SellerOrders } />
-      </DataProvider>
-      <Route path="/customer/products" component={ CustomerProducts } />
-      <Route path="/customer/checkout" component={ CustomerCheckout } />
-      <Route path="/customer/orders/:id" component={ CustomerOrderDetails } />
-      <Route path="/customer/orders/" component={ CustomerOrders } />
-      <Route path="/admin/manage" component={ AdminManage } />
-    </Switch>
+        <Route path="/admin/manage" component={ AdminManage } /> */}
+      </Switch>
+    </LoginProvider>
 
   );
 }

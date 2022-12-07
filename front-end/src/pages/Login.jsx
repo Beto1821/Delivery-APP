@@ -1,15 +1,54 @@
-import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import Button from '../components/Button';
 import GenericInput from '../components/Input';
 import LoginContext from '../context/LoginContext';
+import userLogin from '../service/requests';
+import ErrorMessage from '../components/ErrorMessage';
+import useLocalStorage from '../hooks/useLocalStorage';
+import decryptToken from '../utils/decryptToken';
 
 function Login() {
   const { email, setEmail, password, setPassword } = useContext(LoginContext);
+  const [response, setResponse] = useState({});
+  const history = useHistory();
+  const [, setUser] = useLocalStorage('user', undefined);
   const emailPattern = /\S+@\S+\.\S+/;
   const NUM = 6;
 
   const disabledBtn = () => !(emailPattern.test(email) && password.length >= NUM);
+
+  const loginRedirect = (role) => {
+    switch (role) {
+    case 'customer':
+      history.push('/customer/products');
+      break;
+
+    case 'seller':
+      history.push('/seller/orders/');
+      break;
+
+    case 'administrator':
+      history.push('/admin/manage');
+      break;
+
+    default:
+      break;
+    }
+  };
+
+  const handleButton = async (e) => {
+    e.preventDefault();
+    const { data } = await userLogin({ email, password });
+    if (data.token) {
+      const { token } = data;
+      const userInfo = decryptToken(token);
+      setUser({ ...userInfo, token });
+      loginRedirect(userInfo.role);
+    } else {
+      setResponse(data);
+    }
+  };
 
   return (
     <form>
@@ -34,11 +73,11 @@ function Login() {
         fieldName="Password:"
         selector="password"
       />
-
       <Button
         dataTestId="common_login__button-login"
         type="submit"
         name="login"
+        onClick={ handleButton }
         disabled={ disabledBtn() }
         text="Login"
       />
@@ -50,6 +89,10 @@ function Login() {
           text="Ainda não tenho conta"
         />
       </Link>
+      <ErrorMessage
+        dataTest="common_login__element-invalid-email"
+        message={ response.message }
+      />
     </form>
   );
 }

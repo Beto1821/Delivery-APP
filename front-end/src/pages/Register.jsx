@@ -1,19 +1,31 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import Button from '../components/Button';
 import GenericInput from '../components/Input';
-import LoginContext from '../context/LoginContext';
+import postRegister from '../service/userRequests';
 
 function Register() {
-  const {
-    name,
-    setName,
-    email,
-    setEmail,
-    password,
-    setPassword,
-  } = useContext(LoginContext);
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-  const [isDisabled] = useState(true);
+  const minName = 12;
+  const emailPattern = /\S+@\S+\.\S+/;
+  const minPassword = 6;
+  const history = useHistory();
+
+  const disabledBtn = () => !(
+    name.length >= minName && emailPattern.test(email) && password.length >= minPassword);
+
+  const register = async (event) => {
+    event.preventDefault();
+    const { data } = await postRegister({ name, email, password });
+    console.log(data);
+    if (data.token) {
+      history.push('/customer/products');
+      console.log(token);
+    }
+  };
 
   return (
     <form>
@@ -55,10 +67,10 @@ function Register() {
         dataTestId="common_register__button-register"
         type="submit"
         name="register"
-        disabled={ isDisabled }
+        disabled={ disabledBtn() }
         text="Cadastrar"
+        onClick={ register }
       />
-
     </form>
   );
 }
