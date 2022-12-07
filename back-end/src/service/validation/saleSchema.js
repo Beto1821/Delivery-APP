@@ -11,7 +11,7 @@ const newSaleSchema = Joi.object({
       Joi.object({
         id: Joi.number().min(1).required(),
         quantity: Joi.number().min(1).required(),
-      }),
+      }).unknown(true),
     )
     .min(1)
     .required(),

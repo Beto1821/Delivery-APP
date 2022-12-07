@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 
 function SelectInput({
+  value,
   testId,
   name,
   setter,
@@ -13,6 +14,7 @@ function SelectInput({
     <label htmlFor={ testId }>
       {fieldName}
       <select
+        value={ value }
         id={ testId }
         data-testid={ testId }
         fieldname={ name }
@@ -29,10 +31,12 @@ function SelectInput({
 }
 
 SelectInput.defaultProps = {
+  value: undefined,
   setter: () => {},
 };
 
 SelectInput.propTypes = {
+  value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   testId: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   setter: PropTypes.func,

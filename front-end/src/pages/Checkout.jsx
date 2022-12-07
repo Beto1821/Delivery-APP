@@ -1,39 +1,26 @@
 import { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import useLocalStorage from '../hooks/useLocalStorage';
 import ProductTable from '../components/ProductTable';
 import SelectInput from '../components/SelectInput';
 import GenericInput from '../components/Input';
-import { getSellers } from '../service/requests';
+import Button from '../components/Button';
+import { getSellers, placeOrder } from '../service/requests';
 
 function Checkout() {
-  const [cart, setCart] = useLocalStorage('cart', [
-    {
-      id: 1,
-      name: 'Skol Lata 250ml',
-      price: 2.2,
-      quantity: 2,
-    },
-    {
-      id: 2,
-      name: 'Heineken 600ml',
-      price: 7.5,
-      quantity: 2,
-    },
-    {
-      id: 3,
-      name: 'Antarctica Pilsen 300ml',
-      price: 2.49,
-      quantity: 2,
-    },
-  ]);
+  const [cart, setCart] = useLocalStorage('cart', []);
   const [address, setAddress] = useState('');
   const [number, setNumber] = useState('');
+  const [sellerId, setSellerId] = useState();
   const [sellers, setSellers] = useState();
+  const [error, setError] = useState();
+  const history = useHistory();
 
   useEffect(() => {
     const fetchSellers = async () => {
       const response = await getSellers();
       setSellers(response.data);
+      setSellerId(response.data[0].id);
     };
 
     fetchSellers();
@@ -41,6 +28,26 @@ function Checkout() {
 
   const removeFromCart = (rId) => {
     setCart((prev) => prev.filter(({ id }) => id !== rId));
+  };
+
+  const submitOrder = async (e) => {
+    e.preventDefault();
+    const OK_CODE = 201;
+    const response = await placeOrder(
+      {
+        sellerId,
+        address,
+        number,
+      },
+      cart,
+    );
+
+    if (response.status === OK_CODE) {
+      setCart([]);
+      return history.push(`/customer/orders/${response.data.id}`);
+    }
+
+    setError(response.data);
   };
 
   return sellers ? (
@@ -52,6 +59,8 @@ function Checkout() {
           name="Vendedor"
           nameField="name"
           options={ sellers }
+          value={ sellerId }
+          setter={ setSellerId }
           testId="customer_checkout__select-seller"
           valueField="id"
         />
@@ -73,6 +82,13 @@ function Checkout() {
           type="text"
           setter={ setNumber }
         />
+        <Button
+          dataTestId="customer_checkout__button-submit-order"
+          text="FINALIZAR PEDIDO"
+          type="submit"
+          onClick={ submitOrder }
+        />
+        {error && <p>{error.message}</p>}
       </form>
     </main>
   ) : (
