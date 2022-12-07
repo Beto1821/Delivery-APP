@@ -5,22 +5,25 @@ function ProductTable({ products }) {
   return (
     <section>
       <table>
-        <tr>
-          <th>Item</th>
-          <th>Descrição</th>
-          <th>Quantidade</th>
-          <th>Valor Unitário</th>
-          <th>Sub-total</th>
-          <th>Remover item</th>
-        </tr>
-        {products.map((product, i) => (
-          <ProductTableCard
-            key={ i }
-            name={ product.name }
-            price={ product.price }
-            quantity={ product.quantity }
-          />
-        ))}
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Descrição</th>
+            <th>Quantidade</th>
+            <th>Valor Unitário</th>
+            <th>Sub-total</th>
+            <th>Remover item</th>
+          </tr>
+        </thead>
+        <tbody>
+          {products.map((product, i) => (
+            <ProductTableCard
+              { ...product }
+              index={ i + 1 }
+              key={ i }
+            />
+          ))}
+        </tbody>
       </table>
       <p data-testid="customer_checkout__element-order-total-price">
         {products.reduce(
@@ -37,7 +40,6 @@ ProductTable.propTypes = {
     propTypes.shape({
       name: propTypes.string.isRequired,
       price: propTypes.number.isRequired,
-      key: propTypes.number.isRequired,
       quantity: propTypes.number.isRequired,
     }),
   ).isRequired,

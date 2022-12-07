@@ -17,7 +17,7 @@ function App() {
         <Route exact path="/login" component={ Login } />
         <Route exact path="/register" component={ Register } />
         <Route path="/customer/products" component={ Products } />
-        <Route path="custumer/checkout" component={ Checkout } />
+        <Route path="/customer/checkout" component={ Checkout } />
         <Redirect from="/" to="/login" />
         {/* <Route path="customer/orders/:id" component={ OrderDetails } />
         <Route path="customer/orders/" component={ Orders } />
