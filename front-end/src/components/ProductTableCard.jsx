@@ -1,7 +1,7 @@
 import propTypes from 'prop-types';
 import Button from './Button';
 
-function ProductTableCard({ name, price, index, quantity }) {
+function ProductTableCard({ id, name, price, index, quantity, removeProduct }) {
   return (
     <tr>
       <td
@@ -27,19 +27,30 @@ function ProductTableCard({ name, price, index, quantity }) {
       >
         {price * quantity}
       </td>
-      <td data-testid={ `customer_checkout__element-order-table-remove-${index}` }>
-        <Button
-          dataTestId={ `customer_checkout__element-order-table-remove-${index}` }
-          name="Remover"
-          text="Remover"
-          type="button"
-        />
-      </td>
+      {removeProduct && (
+        <td
+          data-testid={ `customer_checkout__element-order-table-remove-${index}` }
+        >
+          <Button
+            dataTestId={ `customer_checkout__element-order-table-remove-${index}` }
+            name="Remover"
+            text="Remover"
+            type="button"
+            onClick={ () => removeProduct(id) }
+          />
+        </td>
+      )}
     </tr>
   );
 }
 
+ProductTableCard.defaultProps = {
+  removeProduct: undefined,
+};
+
 ProductTableCard.propTypes = {
+  removeProduct: propTypes.func,
+  id: propTypes.number.isRequired,
   name: propTypes.string.isRequired,
   price: propTypes.number.isRequired,
   index: propTypes.number.isRequired,

@@ -2,7 +2,7 @@ import useLocalStorage from '../hooks/useLocalStorage';
 import ProductTable from '../components/ProductTable';
 
 function Checkout() {
-  const [products] = useLocalStorage('cart', [
+  const [cart, setCart] = useLocalStorage('cart', [
     {
       id: 1,
       name: 'Skol Lata 250ml',
@@ -23,9 +23,13 @@ function Checkout() {
     },
   ]);
 
+  const removeFromCart = (rId) => {
+    setCart((prev) => prev.filter(({ id }) => id !== rId));
+  };
+
   return (
     <main>
-      <ProductTable products={ products } />
+      <ProductTable products={ cart } removeProduct={ removeFromCart } />
     </main>
   );
 }

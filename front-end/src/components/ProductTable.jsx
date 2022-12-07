@@ -1,7 +1,7 @@
 import propTypes from 'prop-types';
 import ProductTableCard from './ProductTableCard';
 
-function ProductTable({ products }) {
+function ProductTable({ products, removeProduct }) {
   return (
     <section>
       <table>
@@ -12,13 +12,14 @@ function ProductTable({ products }) {
             <th>Quantidade</th>
             <th>Valor Unitário</th>
             <th>Sub-total</th>
-            <th>Remover item</th>
+            {removeProduct && <th>Remover item</th>}
           </tr>
         </thead>
         <tbody>
           {products.map((product, i) => (
             <ProductTableCard
               { ...product }
+              removeProduct={ removeProduct }
               index={ i + 1 }
               key={ i }
             />
@@ -35,6 +36,10 @@ function ProductTable({ products }) {
   );
 }
 
+ProductTable.defaultProps = {
+  removeProduct: undefined,
+};
+
 ProductTable.propTypes = {
   products: propTypes.arrayOf(
     propTypes.shape({
@@ -43,6 +48,7 @@ ProductTable.propTypes = {
       quantity: propTypes.number.isRequired,
     }),
   ).isRequired,
+  removeProduct: propTypes.func,
 };
 
 export default ProductTable;
