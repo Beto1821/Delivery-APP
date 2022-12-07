@@ -4,6 +4,7 @@ import LoginProvider from './context/LoginProvider';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Products from './pages/ProductsList';
+import Checkout from './pages/Checkout';
 
 // function RedirectToLogin() {
 //   return <Redirect to="/login" />;
@@ -16,9 +17,9 @@ function App() {
         <Route exact path="/login" component={ Login } />
         <Route exact path="/register" component={ Register } />
         <Route path="/customer/products" component={ Products } />
+        <Route path="custumer/checkout" component={ Checkout } />
         <Redirect from="/" to="/login" />
-        {/* <Route path="custumer/checkout" component={ Checkout } />
-        <Route path="customer/orders/:id" component={ OrderDetails } />
+        {/* <Route path="customer/orders/:id" component={ OrderDetails } />
         <Route path="customer/orders/" component={ Orders } />
         <Route path="/seller/orders/:id" component={ SellerOrderDetails } />
         <Route path="/seller/orders/" component={ SellerOrders } />
