@@ -11,7 +11,7 @@ function Register() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [response, setResponse] = useState({});
+  const [response, setResponse] = useState('');
   const [, setUser] = useLocalStorage('user', undefined);
 
   const minName = 12;
@@ -24,16 +24,15 @@ function Register() {
 
   const register = async (event) => {
     event.preventDefault();
-    const { data } = await postRegister({ name, email, password });
-    console.log(data);
-    if (data.token) {
-      const { token } = data;
-      const userInfo = decryptToken(token);
-      setUser({ ...userInfo, token });
-      history.push('/customer/products');
-      console.log(token);
+    const result = await postRegister({ name, email, password });
+
+    if (!result.data) {
+      setResponse(result.response.data.message);
     }
-    setResponse(data);
+    const { token } = result.data;
+    const userInfo = decryptToken(token);
+    setUser({ ...userInfo, token });
+    history.push('/customer/products');
   };
 
   return (
@@ -82,7 +81,7 @@ function Register() {
       />
       <ErrorMessage
         dataTest="common_register__element-invalid_register"
-        message={ response.message }
+        message={ response }
       />
     </form>
   );
