@@ -1,5 +1,6 @@
 import useLocalStorage from '../hooks/useLocalStorage';
 import ProductTable from '../components/ProductTable';
+import SelectInput from '../components/SelectInput';
 
 function Checkout() {
   const [cart, setCart] = useLocalStorage('cart', [
@@ -30,6 +31,23 @@ function Checkout() {
   return (
     <main>
       <ProductTable products={ cart } removeProduct={ removeFromCart } />
+      <SelectInput
+        fieldName="Vendedor"
+        name="Vendedor"
+        nameField="name"
+        options={ [
+          {
+            name: 'Foo',
+            id: 2,
+          },
+          {
+            name: 'Bar',
+            id: 8,
+          },
+        ] }
+        testId="customer_checkout__select-seller"
+        valueField="id"
+      />
     </main>
   );
 }
