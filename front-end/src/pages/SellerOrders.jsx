@@ -1,15 +1,14 @@
 import React, { useContext } from 'react';
-import DataContext from '../context/DataContext';
 import OrderCard from '../components/OrderCard';
 
-function SellerOrder() {
+function Order() {
   const { data, setData } = useContext(DataContext);
 
   return (
     <div>
       <div>
-        { data.map((card) => (
-          <OrderCard card={ card } />
+        { data.map((card, index) => (
+          <OrderCard card={ card } key={ index } />
         )) }
       </div>
     </div>
