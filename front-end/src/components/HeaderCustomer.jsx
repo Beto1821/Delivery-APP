@@ -21,15 +21,18 @@ function HeaderCustomer() {
           text="MEUS PEDIDOS"
         />
       </Link>
-      <h2 dataTestId="customer_products__element-navbar-user-full-name">
+      <h2 data-testid="customer_products__element-navbar-user-full-name">
         Nome
       </h2>
-      <Button
-        dataTestId="customer_products__element-navbar-link-logout"
-        type="button"
-        name="logout"
-        text="SAIR "
-      />
+      <Link to="/login">
+        <Button
+          dataTestId="customer_products__element-navbar-link-logout"
+          type="button"
+          name="logout"
+          text="SAIR "
+        />
+
+      </Link>
     </div>
   );
 }

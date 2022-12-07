@@ -1,16 +1,17 @@
+const md5 = require('md5');
 const { Op } = require('sequelize');
 const { User } = require('../database/models');
 
 const create = async ({ email, password, name, role }) => {
-  const id = Math.floor((Date.now() * Math.random()) / 10000);
-  
+  password = md5(password);
+
   if (!role) {
-    const user = await User.create({ id, email, password, name, role: 'customer' });
+    const user = await User.create({ email, password, name, role: 'customer' });
     
     return user;
   }
 
-  const user = await User.create({ id, email, password, name, role });
+  const user = await User.create({ email, password, name, role });
 
   return user;
 };
