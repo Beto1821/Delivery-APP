@@ -41,6 +41,7 @@ function Products() {
           { totalPrice.toFIxed(2).toString().replace(/\./, ',')}
         </p>
       </button> */}
+      .
     </div>
   );
 }
