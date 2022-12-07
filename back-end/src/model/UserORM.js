@@ -32,6 +32,14 @@ const findByEmailAndPassword = async (email, password) => (
 
 const destroy = async (id) => User.destroy({ where: { id } });
 
+const findByRole = async (role) =>
+  User.findAll({
+    where: {
+      role,
+    },
+    attributes: { exclude: ['password', 'email'] },
+  });
+
 const UserORM = {
   create,
   destroy,
@@ -39,6 +47,7 @@ const UserORM = {
   findByPk,
   findByEmail,
   findByEmailAndPassword,
+  findByRole,
 };
 
 module.exports = UserORM;
