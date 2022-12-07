@@ -3,7 +3,7 @@ import { Link, useHistory } from 'react-router-dom';
 import Button from '../components/Button';
 import GenericInput from '../components/Input';
 import LoginContext from '../context/LoginContext';
-import userLogin from '../service/requests';
+import { userLogin } from '../service/requests';
 import ErrorMessage from '../components/ErrorMessage';
 import useLocalStorage from '../hooks/useLocalStorage';
 import decryptToken from '../utils/decryptToken';

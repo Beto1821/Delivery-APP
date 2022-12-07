@@ -1,43 +1,41 @@
 import PropTypes from 'prop-types';
 
 function OrderCard({
-  id,
-  orderDate,
-  orderStatus,
-  value,
-  address,
+  sellerId,
+  saleDate,
+  status,
+  totalPrice,
+  deliveryAddress,
+  deliveryNumber,
 }) {
   return (
     <div>
       <div className="id-content">
-        { id }
+        { sellerId }
       </div>
       <section className="info-content">
         <div className="status-content">
-          { orderStatus }
+          { status }
         </div>
         <div className="more-info-content">
-          { orderDate }
-          { value }
+          { saleDate }
+          { totalPrice }
         </div>
         <footer>
-          { address || '' }
+          { `${deliveryNumber}, ${deliveryAddress}` || '' }
         </footer>
       </section>
     </div>
   );
 }
 
-OrderCard.defaultProps = {
-  address: undefined,
-};
-
 OrderCard.propTypes = {
-  id: PropTypes.number.isRequired,
-  orderStatus: PropTypes.string.isRequired,
-  orderDate: PropTypes.string.isRequired,
-  value: PropTypes.number.isRequired,
-  address: PropTypes.string,
+  sellerId: PropTypes.number.isRequired,
+  status: PropTypes.string.isRequired,
+  saleDate: PropTypes.string.isRequired,
+  totalPrice: PropTypes.number.isRequired,
+  deliveryAddress: PropTypes.string.isRequired,
+  deliveryNumber: PropTypes.string.isRequired,
 };
 
-export default GenericInput;
+export default OrderCard;
