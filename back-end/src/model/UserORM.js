@@ -19,13 +19,15 @@ const findByPk = async (id) => User.findByPk(id);
 
 const findByEmail = async (email) => User.findOne({ where: { email } });
 
-const findAll = async (id) => User.findAll({
-  where: {
-    id: {
-      [Op.ne]: [id],
+const findAll = async (id) =>
+  User.findAll({
+    where: {
+      id: {
+        [Op.ne]: [id],
+      },
     },
-  },
-}, { attributes: { exclude: ['password'] } });
+    attributes: { exclude: ['password'] },
+  });
 
 const findByEmailAndPassword = async (email, password) => (
   User.findOne({ where: { email, password } }));

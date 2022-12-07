@@ -477,3 +477,25 @@ Retorna todos os usuários cadastrados no banco de dados, com exceção do usuá
 ### DELETE `/user/:id`
 
 Deleta um cliente ou vendedor do banco de dados. Em caso de sucesso retorna um corpo vazio com status `204`.
+
+<hr>
+
+### GET `/seller`
+
+Retorna todos os vendedores cadastrados no banco de dados.
+
+<details>
+  <summary>Exemplo de resposta:</summary>
+  
+```json
+[
+  {
+    "id": 2,
+    "name": "Fulana Pereira",
+    "role": "seller"
+  },
+  /* ... */
+]
+```
+
+</details>
