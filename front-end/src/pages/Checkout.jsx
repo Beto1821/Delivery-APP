@@ -1,6 +1,8 @@
+import { useState, useEffect } from 'react';
 import useLocalStorage from '../hooks/useLocalStorage';
 import ProductTable from '../components/ProductTable';
 import SelectInput from '../components/SelectInput';
+import { getSellers } from '../service/requests';
 
 function Checkout() {
   const [cart, setCart] = useLocalStorage('cart', [
@@ -23,32 +25,35 @@ function Checkout() {
       quantity: 2,
     },
   ]);
+  const [sellers, setSellers] = useState();
+
+  useEffect(() => {
+    const fetchSellers = async () => {
+      const response = await getSellers();
+      setSellers(response.data);
+    };
+
+    fetchSellers();
+  }, []);
 
   const removeFromCart = (rId) => {
     setCart((prev) => prev.filter(({ id }) => id !== rId));
   };
 
-  return (
+  return sellers ? (
     <main>
       <ProductTable products={ cart } removeProduct={ removeFromCart } />
       <SelectInput
         fieldName="Vendedor"
         name="Vendedor"
         nameField="name"
-        options={ [
-          {
-            name: 'Foo',
-            id: 2,
-          },
-          {
-            name: 'Bar',
-            id: 8,
-          },
-        ] }
+        options={ sellers }
         testId="customer_checkout__select-seller"
         valueField="id"
       />
     </main>
+  ) : (
+    <p>loading</p>
   );
 }
 
