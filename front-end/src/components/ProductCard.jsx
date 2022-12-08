@@ -10,8 +10,9 @@ function ProductCard({ product, addToCart, removeFromCart, quantity }) {
         {' '}
         <span
           data-testid={ `customer_products__element-card-price-${id}` }
-        />
-        { price}
+        >
+          { String(price).replace('.', ',') }
+        </span>
       </span>
       <img
         data-testid={ `customer_products__img-card-bg-image-${id}` }
@@ -33,11 +34,13 @@ function ProductCard({ product, addToCart, removeFromCart, quantity }) {
           -
 
         </button>
-        <span data-testid={ `customer_products__input-card-quantity-${id}` }>
-          {' '}
-          { quantity || '0'}
-          {' '}
-        </span>
+        <input
+          data-testid={ `customer_products__input-card-quantity-${id}` }
+          type="number"
+          value={ quantity || 0 }
+          min="0"
+
+        />
         <button
           onClick={ () => addToCart(product) }
           type="button"

@@ -40,7 +40,7 @@ function CustomerProducts() {
     getProducts();
   }, []);
 
-  return (
+  return products ? (
     <div className="cardContainer">
       <HeaderCustomer />
       <div className="cards">
@@ -65,7 +65,7 @@ function CustomerProducts() {
         </p>
       </div>
     </div>
-  );
+  ) : <p>loading</p>;
 }
 
 export default CustomerProducts;
