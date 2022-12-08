@@ -19,6 +19,7 @@ function ProductTable({ products, removeProduct, testIdPrefix }) {
           {products.map((product, i) => (
             <ProductTableCard
               { ...product }
+              testIdPrefix={ testIdPrefix }
               removeProduct={ removeProduct }
               index={ i + 1 }
               key={ i }
