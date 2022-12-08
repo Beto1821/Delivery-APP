@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import OrderCard from '../components/OrderCard';
 import { getOrders } from '../service/requests';
+import EmptyOrder from '../components/EmptyOrder';
 
 function Order() {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState(undefined);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -17,9 +18,10 @@ function Order() {
   return (
     <div>
       <div>
-        { data.map((card, index) => (
-          <OrderCard card={ card } key={ index } />
-        )) }
+        { data
+          ? data.map((card, index) => (
+            <OrderCard card={ card } key={ index } />))
+          : <EmptyOrder /> }
         a
       </div>
     </div>
