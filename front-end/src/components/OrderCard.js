@@ -1,42 +1,71 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function OrderCard({
-  sellerId,
-  saleDate,
-  status,
-  totalPrice,
-  deliveryAddress,
-  deliveryNumber,
-}) {
+function OrderCard(prefix, card) {
+  const {
+    sellerId,
+    status,
+    saleDate,
+    totalPrice,
+    deliveryAddress,
+    deliveryNumber,
+  } = card;
   return (
     <div>
-      <div className="id-content">
+      <h3
+        className="id-content"
+        data-testid={ `${prefix}__element-order-id-${sellerId}` }
+      >
         { sellerId }
-      </div>
+      </h3>
       <section className="info-content">
-        <div className="status-content">
+        <h3
+          className="status-content"
+          data-testid={ `${prefix}__element-delivery-status-${sellerId}` }
+        >
           { status }
-        </div>
+        </h3>
         <div className="more-info-content">
-          { saleDate }
-          { totalPrice }
+          <h4
+            className="date-content"
+            data-testid={ `${prefix}__element-order-date-${sellerId}` }
+          >
+            { saleDate }
+          </h4>
+          <h4
+            className="date-content"
+            data-testid={ `${prefix}__element-card-price-${sellerId}` }
+          >
+            { totalPrice }
+          </h4>
         </div>
-        <footer>
-          { `${deliveryNumber}, ${deliveryAddress}` || '' }
-        </footer>
+        { prefix === 'seller_orders'
+          ? (
+            <footer>
+              <h5
+                className="address-content"
+                data-testid={ `${prefix}__element-card-address-${sellerId}` }
+              >
+                { `${deliveryAddress}, ${deliveryNumber}` }
+              </h5>
+            </footer>
+          ) : (
+            <p />
+          )}
       </section>
     </div>
   );
 }
 
 OrderCard.propTypes = {
-  sellerId: PropTypes.number.isRequired,
-  status: PropTypes.string.isRequired,
-  saleDate: PropTypes.string.isRequired,
-  totalPrice: PropTypes.number.isRequired,
-  deliveryAddress: PropTypes.string.isRequired,
-  deliveryNumber: PropTypes.string.isRequired,
+  card: PropTypes.shape({
+    sellerId: PropTypes.number.isRequired,
+    status: PropTypes.string.isRequired,
+    saleDate: PropTypes.string.isRequired,
+    totalPrice: PropTypes.number.isRequired,
+    deliveryAddress: PropTypes.string.isRequired,
+    deliveryNumber: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default OrderCard;
