@@ -5,7 +5,8 @@ import ProductTable from '../components/ProductTable';
 import SelectInput from '../components/SelectInput';
 import GenericInput from '../components/Input';
 import Button from '../components/Button';
-import { getSellers, placeOrder } from '../service/requests';
+import { getSellers } from '../service/requests';
+import { placeOrder } from '../service/saleRequests';
 
 function Checkout() {
   const [cart, setCart] = useLocalStorage('cart', []);
@@ -52,7 +53,11 @@ function Checkout() {
 
   return sellers ? (
     <main>
-      <ProductTable products={ cart } removeProduct={ removeFromCart } />
+      <ProductTable
+        products={ cart }
+        removeProduct={ removeFromCart }
+        testIdPrefix="customer_checkout"
+      />
       <form>
         <SelectInput
           fieldName="P. Vendedora Responsável"
