@@ -3,9 +3,9 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import LoginProvider from './context/LoginProvider';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import Checkout from './pages/Checkout';
+// import Checkout from './pages/Checkout';
 import CustomerProducts from './pages/CustomerProducts';
-import CustomerOrders from './pages/CustomerOrders';
+// import CustomerOrders from './pages/CustomerOrders';
 
 function App() {
   return (
