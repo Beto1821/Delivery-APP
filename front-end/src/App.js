@@ -14,13 +14,12 @@ function App() {
         <Route path="/login" component={ Login } />
         <Route path="/register" component={ Register } />
         <Route path="/customer/products" component={ CustomerProducts } />
-        <Route path="customer/checkout" component={ Checkout } />
+        <Redirect from="/" to="/login" />
+        {/* <Route path="customer/checkout" component={ Checkout } /> */}
         {/* <Route path="customer/orders/:id" component={ OrderDetails } /> */}
-        <Route path="/customer/orders" component={ CustomerOrders } />
         {/* <Route path="/seller/orders/:id" component={ SellerOrderDetails } /> */}
         {/* <Route path="/seller/orders/" component={ SellerOrders } /> */}
         {/* <Route path="/admin/manage" component={ AdminManage } /> */}
-        <Redirect from="/" to="/login" />
       </Switch>
     </LoginProvider>
 

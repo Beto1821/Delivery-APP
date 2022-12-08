@@ -1,49 +1,37 @@
-// import React, { useEffect, useState } from 'react';
-// import { useHistory } from 'react-router-dom';
-// import useProductsStore from
-// import { getAll } from
-// import ProductCard from '../components/ProductCard';
+import React, { useEffect, useState } from 'react';
+import { getAll } from '../service/products';
 import HeaderCustomer from '../components/HeaderCustomer';
+import ProductCard from '../components/ProductCard';
 
-function Products() {
-  // const array = useProductsStore((state) => state.products);
-  // const cart = useProductsStore((state) => state.cart);
-  // const [totalPrice, setTotalPrice] = useState(0);
-  // const history = useHistory();
+function CustomerProducts() {
+  const [products, setProducts] = useState([]);
 
-  // const handleCheckout = () => history.push('/checkout');
+  useEffect(() => {
+    async function getProducts() {
+      const resp = await getAll();
+      setProducts(resp.data);
 
-  // useEffect(() => {
-  //   async function getProducts() {
-  //     const products = await getAll();
-  //     useProductsStore.setState({ products });
-  //   }
-  //   getProducts();
-  //   setTotalPrice(cart.reduce((acc, { price, quantity }) => acc + (price * quantity), 0));
-  // }, [cart]);
+      // console.log(products);
+    }
+    getProducts();
+  }, []);
 
   return (
     <div>
       <HeaderCustomer />
-      {/* <div>
-        {array.map(() => (
-          <ProductCard key={ Products.id } { ...product } />
+      <div>
+        {products.length && products.map((product) => (
+          <ProductCard
+            key={ product.id }
+            id={ product.id }
+            price={ product.price }
+            img={ product.urlImage }
+            name={ product.name }
+          />
         ))}
       </div>
-      <button
-        type="button"
-        data-testid="customer_products__button-cart"
-        onClick={ handleCheckout }
-        disable={ createImageBitmap.length === 0 }
-      >
-        Carrinho: R$
-        <p data-testid="customer_products_checkout-bottom-value">
-          { totalPrice.toFIxed(2).toString().replace(/\./, ',')}
-        </p>
-      </button> */}
-      .
     </div>
   );
 }
 
-export default Products;
+export default CustomerProducts;
