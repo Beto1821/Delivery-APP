@@ -1,16 +1,8 @@
-import React from 'react';
 import { PropTypes } from 'prop-types';
 import './ProductCard.css';
 
-function ProductCard({ id, name, price, img, addItem, setItem, removeItem, qtd = 0 }) {
-  const handleInputChange = ({ target: { value } }) => {
-    setItem({
-      id,
-      price,
-      urlImage: img,
-      quantity: Number(value),
-    });
-  };
+function ProductCard({ product, addToCart, removeFromCart, quantity }) {
+  const { id, name, price, urlImage } = product;
   return (
     <div key={ id } className="containerItem">
       <span>
@@ -18,12 +10,13 @@ function ProductCard({ id, name, price, img, addItem, setItem, removeItem, qtd =
         {' '}
         <span
           data-testid={ `customer_products__element-card-price-${id}` }
-        />
-        { price}
+        >
+          { String(price).replace('.', ',') }
+        </span>
       </span>
       <img
         data-testid={ `customer_products__img-card-bg-image-${id}` }
-        src={ img }
+        src={ urlImage }
         alt={ name }
       />
       <span
@@ -34,10 +27,9 @@ function ProductCard({ id, name, price, img, addItem, setItem, removeItem, qtd =
       </span>
       <div>
         <button
-          onClick={ () => removeItem(id) }
+          onClick={ () => removeFromCart(product) }
           type="button"
           data-testid={ `customer_products__button-card-rm-item-${id}` }
-
         >
           -
 
@@ -45,17 +37,14 @@ function ProductCard({ id, name, price, img, addItem, setItem, removeItem, qtd =
         <input
           data-testid={ `customer_products__input-card-quantity-${id}` }
           type="number"
-          id="productQtdInput"
-          placeholder="0"
-          value={ qtd }
-          onChange={ handleInputChange }
+          value={ quantity || 0 }
+          min="0"
+
         />
         <button
-          onClick={ () => addItem({
-            id, name, price, urlImage: img, quantity: 1 }) }
+          onClick={ () => addToCart(product) }
           type="button"
           data-testid={ `customer_products__button-card-add-item-${id}` }
-
         >
           +
 
@@ -69,11 +58,7 @@ ProductCard.propTypes = {
   id: PropTypes.number,
   name: PropTypes.string,
   price: PropTypes.number,
-  img: PropTypes.string,
-  addItem: PropTypes.function,
-  removeItem: PropTypes.function,
-  setItem: PropTypes.function,
-  qtd: PropTypes.number,
+  urlImage: PropTypes.string,
 }.isRequired;
 
 export default ProductCard;

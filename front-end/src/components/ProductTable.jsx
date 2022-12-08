@@ -1,7 +1,7 @@
 import propTypes from 'prop-types';
 import ProductTableCard from './ProductTableCard';
 
-function ProductTable({ products, removeProduct, testIdPrefix }) {
+function ProductTable({ products, removeProduct, testIdPrefix, totalPrice }) {
   return (
     <section>
       <table>
@@ -16,7 +16,7 @@ function ProductTable({ products, removeProduct, testIdPrefix }) {
           </tr>
         </thead>
         <tbody>
-          {products.map((product, i) => (
+          {Object.values(products).map((product, i) => (
             <ProductTableCard
               { ...product }
               testIdPrefix={ testIdPrefix }
@@ -28,10 +28,7 @@ function ProductTable({ products, removeProduct, testIdPrefix }) {
         </tbody>
       </table>
       <p data-testid={ `${testIdPrefix}__element-order-total-price` }>
-        {products.reduce(
-          (prev, { price, quantity }) => prev + price * quantity,
-          0,
-        )}
+        {totalPrice}
       </p>
     </section>
   );
@@ -42,7 +39,7 @@ ProductTable.defaultProps = {
 };
 
 ProductTable.propTypes = {
-  products: propTypes.arrayOf(
+  products: propTypes.objectOf(
     propTypes.shape({
       name: propTypes.string.isRequired,
       price: propTypes.number.isRequired,
@@ -51,6 +48,7 @@ ProductTable.propTypes = {
   ).isRequired,
   testIdPrefix: propTypes.string.isRequired,
   removeProduct: propTypes.func,
+  totalPrice: propTypes.number.isRequired,
 };
 
 export default ProductTable;
