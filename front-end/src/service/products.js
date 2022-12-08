@@ -1,9 +1,5 @@
 import api from './api';
-
-const getToken = () => {
-  const user = JSON.parse(localStorage.getItem('user'));
-  return user.token;
-};
+import { getToken } from '../storage/userStorage';
 
 const config = {
   headers: {

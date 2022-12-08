@@ -1,9 +1,8 @@
 import { PropTypes } from 'prop-types';
 import './ProductCard.css';
 
-function ProductCard({ product, incrementCart, decrementCart }) {
+function ProductCard({ product, addToCart, removeFromCart, quantity }) {
   const { id, name, price, urlImage } = product;
-
   return (
     <div key={ id } className="containerItem">
       <span>
@@ -27,15 +26,20 @@ function ProductCard({ product, incrementCart, decrementCart }) {
       </span>
       <div>
         <button
-          onClick={ () => decrementCart() }
+          onClick={ () => removeFromCart(product) }
           type="button"
           data-testid={ `customer_products__button-card-rm-item-${id}` }
         >
           -
 
         </button>
+        <span data-testid={ `customer_products__input-card-quantity-${id}` }>
+          {' '}
+          { quantity || '0'}
+          {' '}
+        </span>
         <button
-          onClick={ () => incrementCart(product) }
+          onClick={ () => addToCart(product) }
           type="button"
           data-testid={ `customer_products__button-card-add-item-${id}` }
         >
