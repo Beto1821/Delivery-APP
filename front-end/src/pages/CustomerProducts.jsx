@@ -22,12 +22,14 @@ function CustomerProducts() {
 
   const removeFromCart = ({ id }) => {
     const newCart = { ...cart.products };
-    if (newCart[id].quantity <= 1) {
-      delete newCart[id];
-    } else {
-      newCart[id].quantity -= 1;
+    if (newCart[id]) {
+      if (newCart[id].quantity <= 1) {
+        delete newCart[id];
+      } else {
+        newCart[id].quantity -= 1;
+      }
+      setCart({ products: newCart, totalPrice: cart.totalPrice - newCart[id].price });
     }
-    etCart({ products: newCart, totalPrice: cart.totalPrice - newCart[id].price });
   };
 
   useEffect(() => {
@@ -37,7 +39,7 @@ function CustomerProducts() {
     }
     getProducts();
   }, []);
-  console.log(cart.totalPrice);
+
   return (
     <div className="cardContainer">
       <HeaderCustomer />

@@ -9,7 +9,10 @@ import { getSellers } from '../service/requests';
 import { placeOrder } from '../service/saleRequests';
 
 function Checkout() {
-  const [cart, setCart] = useLocalStorage('cart', []);
+  const [cart, setCart] = useLocalStorage('cart', {
+    products: {},
+    totalPrice: 0,
+  });
   const [address, setAddress] = useState('');
   const [number, setNumber] = useState('');
   const [sellerId, setSellerId] = useState();
@@ -27,8 +30,11 @@ function Checkout() {
     fetchSellers();
   }, []);
 
-  const removeFromCart = (rId) => {
-    setCart((prev) => prev.filter(({ id }) => id !== rId));
+  const removeFromCart = (id) => {
+    const products = { ...cart.products };
+    const toSubtract = products[id].price * products[id].quantity;
+    delete products[id];
+    setCart((prev) => ({ products, totalPrice: prev.totalPrice - toSubtract }));
   };
 
   const submitOrder = async (e) => {
@@ -40,11 +46,11 @@ function Checkout() {
         address,
         number,
       },
-      cart,
+      cart.products,
     );
 
     if (response.status === OK_CODE) {
-      setCart([]);
+      localStorage.removeItem('cart');
       return history.push(`/customer/orders/${response.data.id}`);
     }
 
@@ -54,7 +60,8 @@ function Checkout() {
   return sellers ? (
     <main>
       <ProductTable
-        products={ cart }
+        totalPrice={ cart.totalPrice }
+        products={ cart.products }
         removeProduct={ removeFromCart }
         testIdPrefix="customer_checkout"
       />
