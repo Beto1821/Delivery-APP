@@ -59,7 +59,7 @@ OrderSummary.propTypes = {
     saleDate: propTypes.string.isRequired,
     status: propTypes.string.isRequired,
   }).isRequired,
-  children: propTypes.element.isRequired,
+  children: propTypes.arrayOf(propTypes.element).isRequired,
   testIdPrefix: propTypes.string.isRequired,
 };
 

@@ -39,3 +39,16 @@ export async function getSale(id) {
     return error.response;
   }
 }
+
+export async function markSaleAs(status, id) {
+  try {
+    const response = await api.put(`/sales/${id}/${status}`, {}, {
+      headers: {
+        Authorization: getToken(),
+      },
+    });
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+}
