@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import OrderSummary from '../components/OrderSummary';
+import ProductTable from '../components/ProductTable';
 import { getSale } from '../service/saleRequests';
 
 function SellerOrderDetails() {
@@ -19,6 +20,7 @@ function SellerOrderDetails() {
   return sale ? (
     <main>
       <OrderSummary sale={ sale } testIdPrefix={ testIdPrefix } />
+      <ProductTable products={ sale.products } testIdPrefix={ testIdPrefix } />
     </main>
   ) : (
     <p>loading</p>

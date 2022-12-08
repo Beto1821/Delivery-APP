@@ -53,7 +53,11 @@ function Checkout() {
 
   return sellers ? (
     <main>
-      <ProductTable products={ cart } removeProduct={ removeFromCart } />
+      <ProductTable
+        products={ cart }
+        removeProduct={ removeFromCart }
+        testIdPrefix="customer_checkout"
+      />
       <form>
         <SelectInput
           fieldName="P. Vendedora Responsável"
