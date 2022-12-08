@@ -1,9 +1,10 @@
 const jwt = require('jsonwebtoken');
 const getJwtKey = require('./getJwtKey');
 
-async function generateToken({ email, name, role }) {
+async function generateToken({ id, email, name, role }) {
   const secret = await getJwtKey();
   const payload = {
+    id,
     email,
     name,
     role,

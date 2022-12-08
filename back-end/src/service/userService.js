@@ -2,12 +2,16 @@ const md5 = require('md5');
 const generateToken = require('../auth/generateToken');
 const RestError = require('../errors/RestError');
 const UserORM = require('../model/UserORM');
-const { loginSchema, userRegisterSchema, userCreateSchema } = require('./validation/userSchema');
+const {
+  loginSchema,
+  userRegisterSchema,
+  userCreateSchema,
+} = require('./validation/userSchema');
 const validateSchema = require('./validation/validateSchema');
 
 const readOne = async (email, password) => {
   validateSchema(loginSchema, { email, password }, 400);
-  
+
   const md5Pass = md5(password);
 
   const user = await UserORM.findByEmailAndPassword(email, md5Pass);
@@ -49,7 +53,7 @@ const create = async (data) => {
 
 const createWithRole = async (data) => {
   validateSchema(userCreateSchema, data, 400);
-  
+
   const validateUser = await UserORM.findByEmail(data.email);
 
   if (validateUser) {
@@ -65,7 +69,9 @@ const createWithRole = async (data) => {
     }
   });
 
-  if (!isValidRole) { throw new RestError(400, 'Invalid role'); }
+  if (!isValidRole) {
+    throw new RestError(400, 'Invalid role');
+  }
 
   const user = await UserORM.create(data);
 
@@ -82,4 +88,13 @@ const deleteUser = async (id) => {
   }
 };
 
-module.exports = { readOne, readAll, create, createWithRole, deleteUser };
+const findByRole = async (role) => UserORM.findByRole(role);
+
+module.exports = {
+  readOne,
+  readAll,
+  create,
+  createWithRole,
+  deleteUser,
+  findByRole,
+};

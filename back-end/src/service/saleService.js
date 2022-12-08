@@ -25,7 +25,7 @@ const validateProducts = async (products) => {
 
 const insertSale = async (sale) => {
   const value = validateSchema(newSaleSchema, sale);
-
+  console.log(value);
   await validateSeller(sale.sellerId);
   await validateProducts(sale.products);
 

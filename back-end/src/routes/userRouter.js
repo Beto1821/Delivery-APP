@@ -31,4 +31,10 @@ userRouter.delete(
   userController.deleteUser,
 );
 
+userRouter.get(
+  '/seller',
+  verifyToken,
+  userController.getSellers,
+);
+
 module.exports = userRouter;
