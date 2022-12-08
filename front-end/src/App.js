@@ -5,6 +5,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import CustomerProducts from './pages/CustomerProducts';
 import CustomerOrders from './pages/CustomerOrders';
+import AdminManage from './pages/AdminManage';
 
 // function RedirectToLogin() {
 //   return <Redirect to="/login" />;
@@ -23,7 +24,7 @@ function App() {
         <Route path="/customer/orders" component={ CustomerOrders } />
         {/* <Route path="/seller/orders/:id" component={ SellerOrderDetails } /> */}
         {/* <Route path="/seller/orders/" component={ SellerOrders } /> */}
-        {/* <Route path="/admin/manage" component={ AdminManage } /> */}
+        <Route path="/admin/manage" component={ AdminManage } />
       </Switch>
     </LoginProvider>
 
