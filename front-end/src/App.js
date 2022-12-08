@@ -3,8 +3,9 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import LoginProvider from './context/LoginProvider';
 import Login from './pages/Login';
 import Register from './pages/Register';
-// import Checkout from './pages/Checkout';
+import Checkout from './pages/Checkout';
 import CustomerProducts from './pages/CustomerProducts';
+import SellerOrderDetails from './pages/SellerOrderDetails';
 // import CustomerOrders from './pages/CustomerOrders';
 
 function App() {
@@ -14,15 +15,14 @@ function App() {
         <Route path="/login" component={ Login } />
         <Route path="/register" component={ Register } />
         <Route path="/customer/products" component={ CustomerProducts } />
-        <Redirect from="/" to="/login" />
-        {/* <Route path="customer/checkout" component={ Checkout } /> */}
+        <Route path="/customer/checkout" component={ Checkout } />
+        <Route path="/seller/orders/:id" component={ SellerOrderDetails } />
         {/* <Route path="customer/orders/:id" component={ OrderDetails } /> */}
-        {/* <Route path="/seller/orders/:id" component={ SellerOrderDetails } /> */}
         {/* <Route path="/seller/orders/" component={ SellerOrders } /> */}
         {/* <Route path="/admin/manage" component={ AdminManage } /> */}
+        <Redirect from="/" to="/login" />
       </Switch>
     </LoginProvider>
-
   );
 }
 

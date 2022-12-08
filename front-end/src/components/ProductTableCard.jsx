@@ -1,38 +1,46 @@
 import propTypes from 'prop-types';
 import Button from './Button';
 
-function ProductTableCard({ id, name, price, index, quantity, removeProduct }) {
+function ProductTableCard({
+  id,
+  name,
+  price,
+  index,
+  quantity,
+  removeProduct,
+  testIdPrefix,
+}) {
   return (
     <tr>
       <td
-        data-testid={ `customer_checkout__element-order-table-item-number-${index}` }
+        data-testid={ `${testIdPrefix}__element-order-table-item-number-${index}` }
       >
         {index}
       </td>
-      <td data-testid={ `customer_checkout__element-order-table-name-${index}` }>
+      <td data-testid={ `${testIdPrefix}__element-order-table-name-${index}` }>
         {name}
       </td>
       <td
-        data-testid={ `customer_checkout__element-order-table-quantity-${index}` }
+        data-testid={ `${testIdPrefix}__element-order-table-quantity-${index}` }
       >
         {quantity}
       </td>
       <td
-        data-testid={ `customer_checkout__element-order-table-unit-price-${index}` }
+        data-testid={ `${testIdPrefix}__element-order-table-unit-price-${index}` }
       >
         {price}
       </td>
       <td
-        data-testid={ `customer_checkout__element-order-table-sub-total-${index}` }
+        data-testid={ `${testIdPrefix}__element-order-table-sub-total-${index}` }
       >
         {price * quantity}
       </td>
       {removeProduct && (
         <td
-          data-testid={ `customer_checkout__element-order-table-remove-${index}` }
+          data-testid={ `${testIdPrefix}__element-order-table-remove-${index}` }
         >
           <Button
-            dataTestId={ `customer_checkout__element-order-table-remove-${index}` }
+            dataTestId={ `${testIdPrefix}__element-order-table-remove-${index}` }
             name="Remover"
             text="Remover"
             type="button"
@@ -55,6 +63,7 @@ ProductTableCard.propTypes = {
   price: propTypes.number.isRequired,
   index: propTypes.number.isRequired,
   quantity: propTypes.number.isRequired,
+  testIdPrefix: propTypes.string.isRequired,
 };
 
 export default ProductTableCard;
