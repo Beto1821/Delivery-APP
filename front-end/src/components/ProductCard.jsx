@@ -33,11 +33,14 @@ function ProductCard({ product, addToCart, removeFromCart, quantity }) {
           -
 
         </button>
-        <span data-testid={ `customer_products__input-card-quantity-${id}` }>
-          {' '}
-          { quantity || '0'}
-          {' '}
-        </span>
+        <input
+          data-testid={ `customer_products__input-card-quantity-${id}` }
+          id={ id }
+          name={ name }
+          value={ quantity }
+          onChange={ (event) => handleChangeInput(event) }
+          type="text"
+        />
         <button
           onClick={ () => addToCart(product) }
           type="button"

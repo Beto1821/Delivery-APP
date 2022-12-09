@@ -27,7 +27,7 @@ function CustomerProducts() {
     } else {
       newCart[id].quantity -= 1;
     }
-    etCart({ products: newCart, totalPrice: cart.totalPrice - newCart[id].price });
+    setCart({ products: newCart, totalPrice: cart.totalPrice - newCart[id].price });
   };
 
   useEffect(() => {
