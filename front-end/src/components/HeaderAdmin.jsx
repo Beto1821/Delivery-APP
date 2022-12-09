@@ -16,14 +16,14 @@ function HeaderAdmin() {
       <h2 data-testid="customer_products__element-navbar-user-full-name">
         Trybeer Admin
       </h2>
-      {/* <Link to="/login">
+      <Link to="/login">
         <Button
           dataTestId="customer_products__element-navbar-link-logout"
           type="button"
           name="logout"
           text="SAIR "
         />
-      </Link> */}
+      </Link>
     </div>
   );
 }

@@ -5,7 +5,7 @@ const getImage = async (req, res) => {
 
   const result = await imageService.getImage(fileName);
 
-  res.status(200).send(result);
+  res.contentType('jpeg').status(200).send(result);
 };
 
 const imageController = {

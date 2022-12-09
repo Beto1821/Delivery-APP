@@ -22,12 +22,14 @@ function CustomerProducts() {
 
   const removeFromCart = ({ id }) => {
     const newCart = { ...cart.products };
-    if (newCart[id].quantity <= 1) {
-      delete newCart[id];
-    } else {
-      newCart[id].quantity -= 1;
+    if (newCart[id]) {
+      if (newCart[id].quantity <= 1) {
+        delete newCart[id];
+      } else {
+        newCart[id].quantity -= 1;
+      }
+      setCart({ products: newCart, totalPrice: cart.totalPrice - newCart[id].price });
     }
-    setCart({ products: newCart, totalPrice: cart.totalPrice - newCart[id].price });
   };
 
   useEffect(() => {
@@ -37,8 +39,8 @@ function CustomerProducts() {
     }
     getProducts();
   }, []);
-  console.log(cart.totalPrice);
-  return (
+
+  return products ? (
     <div className="cardContainer">
       <HeaderCustomer />
       <div className="cards">
@@ -63,7 +65,7 @@ function CustomerProducts() {
         </p>
       </div>
     </div>
-  );
+  ) : <p>loading</p>;
 }
 
 export default CustomerProducts;

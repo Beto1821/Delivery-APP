@@ -10,8 +10,9 @@ function ProductCard({ product, addToCart, removeFromCart, quantity }) {
         {' '}
         <span
           data-testid={ `customer_products__element-card-price-${id}` }
-        />
-        { price}
+        >
+          { String(price).replace('.', ',') }
+        </span>
       </span>
       <img
         data-testid={ `customer_products__img-card-bg-image-${id}` }
@@ -40,6 +41,7 @@ function ProductCard({ product, addToCart, removeFromCart, quantity }) {
           value={ quantity }
           onChange={ (event) => handleChangeInput(event) }
           type="text"
+
         />
         <button
           onClick={ () => addToCart(product) }

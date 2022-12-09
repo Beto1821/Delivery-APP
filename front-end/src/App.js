@@ -5,10 +5,9 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Checkout from './pages/Checkout';
 import CustomerProducts from './pages/CustomerProducts';
-import CustomerOrders from './pages/CustomerOrders';
+// import CustomerOrders from './pages/CustomerOrders';
 import AdminManage from './pages/AdminManage';
 import SellerOrderDetails from './pages/SellerOrderDetails';
-
 
 function App() {
   return (
