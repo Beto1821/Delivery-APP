@@ -3,9 +3,9 @@ const userService = require('../service/userService');
 module.exports = {
   async login(req, res) {
     const { email, password } = req.body;
-  
+
     const token = await userService.readOne(email, password);
-  
+
     return res.status(200).json({ token });
   },
 
@@ -18,7 +18,7 @@ module.exports = {
 
     return res.status(200).json(users);
   },
-  
+
   async userRegister(req, res) {
     const { email, name, password } = req.body;
 
@@ -45,5 +45,11 @@ module.exports = {
     await userService.deleteUser(id);
 
     return res.sendStatus(204);
+  },
+
+  async getSellers(_req, res) {
+    const users = await userService.findByRole('seller');
+
+    return res.status(200).json(users);
   },
 };

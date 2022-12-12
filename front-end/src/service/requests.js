@@ -1,6 +1,7 @@
+import { getToken } from '../storage/userStorage';
 import api from './api';
 
-async function userLogin({ email, password }) {
+export async function userLogin({ email, password }) {
   try {
     const response = await api.post('/login', {
       email,
@@ -12,11 +13,11 @@ async function userLogin({ email, password }) {
   }
 }
 
-async function getOrders() {
+export async function getOrders() {
   try {
     const response = await api.get('/sales/history', {
       headers: {
-        Authorization: JSON.parse(localStorage.getItem('user')).token,
+        Authorization: getToken(),
       },
     });
     return response;
@@ -25,7 +26,15 @@ async function getOrders() {
   }
 }
 
-export {
-  userLogin,
-  getOrders,
-};
+export async function getSellers() {
+  try {
+    const response = await api.get('/seller', {
+      headers: {
+        Authorization: getToken(),
+      },
+    });
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+}

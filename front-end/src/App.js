@@ -5,28 +5,29 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Products from './pages/ProductsList';
 import Order from './pages/Orders';
-
-// function RedirectToLogin() {
-//   return <Redirect to="/login" />;
-// }
+import Checkout from './pages/Checkout';
+import CustomerProducts from './pages/CustomerProducts';
+import CustomerOrders from './pages/CustomerOrders';
+import AdminManage from './pages/AdminManage';
+import SellerOrderDetails from './pages/SellerOrderDetails';
+import CustomerOrderDetails from './pages/CustomerOrderDetails';
 
 function App() {
   return (
     <LoginProvider>
       <Switch>
-        <Route exact path="/login" component={ Login } />
-        <Route exact path="/register" component={ Register } />
-        <Route path="/customer/products" component={ Products } />
-        <Route path="/seller/orders/" component={ Order } />
-        <Redirect from="/" to="/login" />
-        {/* <Route path="custumer/checkout" component={ Checkout } />
-        <Route path="customer/orders/:id" component={ OrderDetails } />
-        <Route path="customer/orders/" component={ Orders } />
+        <Route path="/login" component={ Login } />
+        <Route path="/register" component={ Register } />
+        <Route path="/customer/products" component={ CustomerProducts } />
+        <Route path="/customer/checkout" component={ Checkout } />
         <Route path="/seller/orders/:id" component={ SellerOrderDetails } />
-        <Route path="/admin/manage" component={ AdminManage } /> */}
+        <Route path="/customer/orders/:id" component={ CustomerOrderDetails } />
+        <Route path="/customer/orders/" component={ CustomerOrders } />
+        <Route path="/seller/orders/" component={ SellerOrders } />
+        <Route path="/admin/manage" component={ AdminManage } />
+        <Redirect from="/" to="/login" />
       </Switch>
     </LoginProvider>
-
   );
 }
 

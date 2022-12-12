@@ -8,12 +8,12 @@ function GenericInput({
   name,
   placeholder,
   setter,
-  selector,
   fieldName }) {
   return (
-    <label htmlFor={ selector }>
+    <label htmlFor={ testId }>
       { fieldName }
       <input
+        id={ testId }
         data-testid={ testId }
         type={ type }
         value={ input }
@@ -36,7 +36,6 @@ GenericInput.propTypes = {
   name: PropTypes.string.isRequired,
   setter: PropTypes.func,
   placeholder: PropTypes.string.isRequired,
-  selector: PropTypes.string.isRequired,
   fieldName: PropTypes.string.isRequired,
 };
 

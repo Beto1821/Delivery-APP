@@ -3,11 +3,16 @@ import { useHistory } from 'react-router-dom';
 import Button from '../components/Button';
 import GenericInput from '../components/Input';
 import postRegister from '../service/userRequests';
+import ErrorMessage from '../components/ErrorMessage';
+import useLocalStorage from '../hooks/useLocalStorage';
+import decryptToken from '../utils/decryptToken';
 
 function Register() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [response, setResponse] = useState('');
+  const [, setUser] = useLocalStorage('user', undefined);
 
   const minName = 12;
   const emailPattern = /\S+@\S+\.\S+/;
@@ -19,12 +24,15 @@ function Register() {
 
   const register = async (event) => {
     event.preventDefault();
-    const { data } = await postRegister({ name, email, password });
-    console.log(data);
-    if (data.token) {
-      history.push('/customer/products');
-      console.log(token);
+    const result = await postRegister({ name, email, password });
+
+    if (!result.data) {
+      setResponse(result.response.data.message);
     }
+    const { token } = result.data;
+    const userInfo = decryptToken(token);
+    setUser({ ...userInfo, token });
+    history.push('/customer/products');
   };
 
   return (
@@ -70,6 +78,10 @@ function Register() {
         disabled={ disabledBtn() }
         text="Cadastrar"
         onClick={ register }
+      />
+      <ErrorMessage
+        dataTest="common_register__element-invalid_register"
+        message={ response }
       />
     </form>
   );

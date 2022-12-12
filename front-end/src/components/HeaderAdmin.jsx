@@ -2,27 +2,19 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Button from './Button';
 
-function HeaderCustomer(name) {
+function HeaderAdmin() {
   return (
     <div>
-      <Link to="/customer/products">
-        <Button
-          dataTestId="customer_products__element-navbar-link-products"
-          type="button"
-          name="products"
-          text="PRODUTOS"
-        />
-      </Link>
-      <Link to="/customer/orders">
+      <Link to="/admin/manage">
         <Button
           dataTestId="customer_products__element-navbar-link-orders"
           type="button"
           name="orders"
-          text="MEUS PEDIDOS"
+          text="GERENCIAR USUÁRIOS"
         />
       </Link>
       <h2 data-testid="customer_products__element-navbar-user-full-name">
-        { name }
+        Trybeer Admin
       </h2>
       <Link to="/login">
         <Button
@@ -31,10 +23,9 @@ function HeaderCustomer(name) {
           name="logout"
           text="SAIR "
         />
-
       </Link>
     </div>
   );
 }
 
-export default HeaderCustomer;
+export default HeaderAdmin;
