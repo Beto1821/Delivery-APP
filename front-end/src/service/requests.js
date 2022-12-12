@@ -13,6 +13,19 @@ export async function userLogin({ email, password }) {
   }
 }
 
+export async function getOrders() {
+  try {
+    const response = await api.get('/sales/history', {
+      headers: {
+        Authorization: getToken(),
+      },
+    });
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+}
+
 export async function getSellers() {
   try {
     const response = await api.get('/seller', {
