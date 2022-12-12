@@ -15,7 +15,7 @@ const insertSale = async (sale) =>
         totalPrice: sale.totalPrice,
         deliveryAddress: sale.deliveryAddress,
         deliveryNumber: sale.deliveryNumber,
-        status: 'PENDENTE',
+        status: 'Pendente',
       },
       { transaction },
     );

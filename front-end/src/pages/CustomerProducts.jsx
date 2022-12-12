@@ -1,48 +1,70 @@
-import React, { useDebugValue, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { getAll } from '../service/products';
 import HeaderCustomer from '../components/HeaderCustomer';
 import ProductCard from '../components/ProductCard';
-import CartButton from '../components/CartButton';
+import useLocalStorage from '../hooks/useLocalStorage';
+import FormattedPrice from '../components/FormattedPrice';
 
-
+// eslint-disable-next-line sonarjs/cognitive-complexity
 function CustomerProducts() {
   const [products, setProducts] = useState([]);
-  const [value, setValue] = useState([]);
+  const [cart, setCart] = useLocalStorage('cart', { products: {}, totalPrice: 0 });
 
-  const addToLocalStorage = ({ id, name, price, urlImage, quantity }) => {
-    const hasItem = value.findIndex((item) => item.id === id);
-    if (hasItem >= 0) {
-      value[hasItem].quantity += 1;
-      setValue([...value]);
+  const handleChange = (e, product) => {
+    const newQuantity = e.target.value;
+    const { id } = product;
+    const newCart = { ...cart.products };
+
+    if (Object.keys(newCart).find((key) => key === String(id))) {
+      if (newQuantity < 1) {
+        delete newCart[id];
+      } else {
+        newCart[id].quantity = newQuantity;
+      }
     } else {
-      setValue([...value, { id, name, price, urlImage, quantity }]);
+      product.quantity = newQuantity;
+      newCart[id] = product;
     }
+
+    setCart({
+      products: newCart,
+      totalPrice: +Object.values(newCart).reduce(
+        (prev, { price, quantity }) => prev + +price * quantity,
+        0,
+      ).toFixed(2),
+    });
   };
 
-  const removeFromLocalStorage = (id) => {
-    const hasItem = value.findIndex((item) => item.id === id);
-    if (hasItem >= 0 && value[hasItem].quantity > 1) {
-      value[hasItem].quantity -= 1;
-      return setValue([...value]);
+  const addToCart = (product) => {
+    const { id } = product;
+    const newCart = { ...cart.products };
+    if (Object.keys(newCart).find((key) => key === String(id))) {
+      newCart[id].quantity += 1;
+    } else {
+      product.quantity = 1;
+      newCart[id] = product;
     }
-    if (hasItem >= 0) {
-      value.splice(hasItem, 1);
-      return setValue([...value]);
-    }
+    setCart({
+      products: newCart,
+      totalPrice: +(cart.totalPrice + +newCart[id].price).toFixed(2),
+    });
   };
 
-  const setOnLocalStorage = ({ id, name, price, urlImage, quantity }) => {
-    const hasItem = value.findIndex((item) => item.id === id);
-    if (hasItem >= 0 && quantity > 0) {
-      value[hasItem].quantity = quantity;
-      return setValue([...value]);
+  const removeFromCart = ({ id }) => {
+    const newCart = { ...cart.products };
+    if (newCart[id]) {
+      if (newCart[id].quantity <= 1) {
+        delete newCart[id];
+      } else {
+        newCart[id].quantity -= 1;
+      }
+      setCart({
+        products: newCart,
+        totalPrice: +(cart.totalPrice - +cart.products[id].price).toFixed(2),
+      });
     }
-    if (hasItem >= 0 && quantity <= 0) {
-      value.splice(hasItem, 1);
-      return setValue([...value]);
-    }
-    return setValue([...value, { id, name, price, urlImage, quantity }]);
-  };  
+  };
 
   useEffect(() => {
     async function getProducts() {
@@ -52,29 +74,42 @@ function CustomerProducts() {
     getProducts();
   }, []);
 
-  return (
-    <div className='cards'>
+  return products ? (
+    <div className="cardContainer">
       <HeaderCustomer />
-      <div>
+      <div className="cards">
         {products.length && products.map((product) => (
           <ProductCard
             key={ product.id }
-            id={ product.id }
-            price={ product.price }
-            img={ product.urlImage }
-            name={ product.name }
-            addItem={ addToLocalStorage }
-            removeItem={ removeFromLocalStorage }
-            setItem={ setOnLocalStorage }            
-            qtd={ value.find((item) => item.id === product.id)?.quantity }
+            product={ product }
+            addToCart={ addToCart }
+            removeFromCart={ removeFromCart }
+            handleChange={ handleChange }
+            quantity={ cart.products[product.id]?.quantity }
           />
         ))}
       </div>
-      <CartButton
-        total={ value.reduce((acc, v) => v.price * caches.quantity + acc, 0) }
-       />
+      <div>
+        <button
+          data-testid="customer_products__button-cart"
+          type="button"
+          disabled={ Object.values(cart.products).length === 0 }
+        >
+          <Link to="/customer/checkout">
+            Ver Carrinho
+          </Link>
+        </button>
+        <p>
+          Total
+          {' '}
+          <FormattedPrice
+            testid="customer_products__checkout-bottom-value"
+            price={ cart.totalPrice }
+          />
+        </p>
+      </div>
     </div>
-  );
+  ) : <p>loading</p>;
 }
 
 export default CustomerProducts;

@@ -1,23 +1,17 @@
 import api from './api';
-
-const getToken = () => {
-  const user = JSON.parse(localStorage.getItem('user'));
-  return user.token;
-};
-
-const config = {
-  headers: {
-    Authorization: getToken(),
-  },
-
-};
+import { getToken } from '../storage/userStorage';
 
 export const getAll = async () => {
   try {
     console.log(getToken());
-    const products = await api.get('/products', config);
+    const products = await api.get('/products', {
+      headers: {
+        Authorization: getToken(),
+      },
+    });
     return products;
   } catch (err) {
+    console.log(err);
     return err;
   }
 };
