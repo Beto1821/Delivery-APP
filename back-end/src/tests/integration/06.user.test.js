@@ -24,6 +24,7 @@ describe('POST /user', () => {
         const httpResponse = await chai
           .request(app)
           .post('/user')
+          .set('authorization', token)
           .send({ password, email, role });
 
         expect(httpResponse.status).to.equal(400);
@@ -35,6 +36,7 @@ describe('POST /user', () => {
         const httpResponse = await chai
           .request(app)
           .post('/user')
+          .set('authorization', token)
           .send({ password, name, role });
 
         expect(httpResponse.status).to.equal(400);
@@ -46,6 +48,7 @@ describe('POST /user', () => {
         const httpResponse = await chai
           .request(app)
           .post('/user')
+          .set('authorization', token)
           .send({ email, name, role });
 
         expect(httpResponse.status).to.equal(400);
@@ -57,6 +60,7 @@ describe('POST /user', () => {
         const httpResponse = await chai
           .request(app)
           .post('/user')
+          .set('authorization', token)
           .send({ email, name, password });
 
         expect(httpResponse.status).to.equal(400);
@@ -71,6 +75,7 @@ describe('POST /user', () => {
       const httpResponse = await chai
         .request(app)
         .post('/user')
+        .set('authorization', token)
         .send({ email, name, password, role: 'invalid_role' });
 
       expect(httpResponse.status).to.equal(400);
@@ -85,6 +90,7 @@ describe('POST /user', () => {
         const httpResponse = await chai
           .request(app)
           .post('/user')
+          .set('authorization', token)
           .send({ email, password, name, role });
 
       expect(httpResponse.status).to.equal(409);
@@ -100,6 +106,7 @@ describe('POST /user', () => {
         const httpResponse = await chai
           .request(app)
           .post('/user')
+          .set('authorization', token)
           .send({ email, password, name, role });
 
         expect(httpResponse.status).to.equal(201);

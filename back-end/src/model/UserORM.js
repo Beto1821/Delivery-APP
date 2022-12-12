@@ -2,8 +2,8 @@ const md5 = require('md5');
 const { Op } = require('sequelize');
 const { User } = require('../database/models');
 
-const create = async ({ email, password, name, role }) => {
-  password = md5(password);
+const create = async ({ email, password: p, name, role }) => {
+  const password = md5(p);
 
   if (!role) {
     const user = await User.create({ email, password, name, role: 'customer' });
