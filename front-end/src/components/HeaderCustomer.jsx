@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Button from './Button';
 
-function HeaderCustomer(name) {
+function HeaderCustomer() {
   return (
     <div>
       <Link to="/customer/products">
@@ -22,7 +22,7 @@ function HeaderCustomer(name) {
         />
       </Link>
       <h2 data-testid="customer_products__element-navbar-user-full-name">
-        { name }
+        name
       </h2>
       <Link to="/login">
         <Button

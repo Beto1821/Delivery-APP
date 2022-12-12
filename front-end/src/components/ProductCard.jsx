@@ -1,17 +1,15 @@
 import { PropTypes } from 'prop-types';
 import './ProductCard.css';
 
-function ProductCard({ product, addToCart, removeFromCart, quantity, handleChange }) {
+function ProductCard({ product, setProductQuantity, quantity }) {
   const { id, name, price, urlImage } = product;
   return (
     <div key={ id } className="containerItem">
       <span>
         R$
         {' '}
-        <span
-          data-testid={ `customer_products__element-card-price-${id}` }
-        >
-          { String(price).replace('.', ',') }
+        <span data-testid={ `customer_products__element-card-price-${id}` }>
+          {String(price).replace('.', ',')}
         </span>
       </span>
       <img
@@ -19,37 +17,31 @@ function ProductCard({ product, addToCart, removeFromCart, quantity, handleChang
         src={ urlImage }
         alt={ name }
       />
-      <span
-        data-testid={ `customer_products__element-card-title-${id}` }
-      >
+      <span data-testid={ `customer_products__element-card-title-${id}` }>
         {name}
-
       </span>
       <div>
         <button
-          onClick={ () => removeFromCart(product) }
+          onClick={ () => setProductQuantity(product, (prev) => prev - 1) }
           type="button"
           data-testid={ `customer_products__button-card-rm-item-${id}` }
         >
           -
-
         </button>
         <input
           data-testid={ `customer_products__input-card-quantity-${id}` }
           id={ id }
           name={ name }
-          value={ quantity }
-          onChange={ (event) => handleChange(event, product) }
-          type="text"
-
+          value={ Number(quantity).toString() }
+          onChange={ ({ target: { value } }) => setProductQuantity(product, value) }
+          type="number"
         />
         <button
-          onClick={ () => addToCart(product) }
+          onClick={ () => setProductQuantity(product, (prev) => prev + 1) }
           type="button"
           data-testid={ `customer_products__button-card-add-item-${id}` }
         >
           +
-
         </button>
       </div>
     </div>

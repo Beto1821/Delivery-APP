@@ -6,64 +6,34 @@ import ProductCard from '../components/ProductCard';
 import useLocalStorage from '../hooks/useLocalStorage';
 import FormattedPrice from '../components/FormattedPrice';
 
-// eslint-disable-next-line sonarjs/cognitive-complexity
 function CustomerProducts() {
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useLocalStorage('cart', { products: {}, totalPrice: 0 });
 
-  const handleChange = (e, product) => {
-    const newQuantity = e.target.value;
+  const setProductQuantity = (product, qtd) => {
     const { id } = product;
-    const newCart = { ...cart.products };
+    const newProducts = { ...cart.products };
+    const newQuantity = qtd instanceof Function
+      ? Number(qtd(newProducts[id]?.quantity || 0))
+      : Number(qtd);
 
-    if (Object.keys(newCart).find((key) => key === String(id))) {
+    if (Object.keys(newProducts).find((key) => key === String(id))) {
       if (newQuantity < 1) {
-        delete newCart[id];
+        delete newProducts[id];
       } else {
-        newCart[id].quantity = newQuantity;
+        newProducts[id].quantity = newQuantity;
       }
-    } else {
-      product.quantity = newQuantity;
-      newCart[id] = product;
+    } else if (newQuantity > 0) {
+      newProducts[id] = { ...product, quantity: newQuantity };
     }
 
     setCart({
-      products: newCart,
-      totalPrice: +Object.values(newCart).reduce(
+      products: newProducts,
+      totalPrice: +Object.values(newProducts).reduce(
         (prev, { price, quantity }) => prev + +price * quantity,
         0,
       ).toFixed(2),
     });
-  };
-
-  const addToCart = (product) => {
-    const { id } = product;
-    const newCart = { ...cart.products };
-    if (Object.keys(newCart).find((key) => key === String(id))) {
-      newCart[id].quantity += 1;
-    } else {
-      product.quantity = 1;
-      newCart[id] = product;
-    }
-    setCart({
-      products: newCart,
-      totalPrice: +(cart.totalPrice + +newCart[id].price).toFixed(2),
-    });
-  };
-
-  const removeFromCart = ({ id }) => {
-    const newCart = { ...cart.products };
-    if (newCart[id]) {
-      if (newCart[id].quantity <= 1) {
-        delete newCart[id];
-      } else {
-        newCart[id].quantity -= 1;
-      }
-      setCart({
-        products: newCart,
-        totalPrice: +(cart.totalPrice - +cart.products[id].price).toFixed(2),
-      });
-    }
   };
 
   useEffect(() => {
@@ -82,9 +52,7 @@ function CustomerProducts() {
           <ProductCard
             key={ product.id }
             product={ product }
-            addToCart={ addToCart }
-            removeFromCart={ removeFromCart }
-            handleChange={ handleChange }
+            setProductQuantity={ setProductQuantity }
             quantity={ cart.products[product.id]?.quantity }
           />
         ))}
@@ -99,14 +67,14 @@ function CustomerProducts() {
             Ver Carrinho
           </Link>
         </button>
-        <p>
+        <div>
           Total
           {' '}
           <FormattedPrice
             testid="customer_products__checkout-bottom-value"
             price={ cart.totalPrice }
           />
-        </p>
+        </div>
       </div>
     </div>
   ) : <p>loading</p>;
