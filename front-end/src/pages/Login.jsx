@@ -56,18 +56,22 @@ function Login() {
         testId="common_login__input-email"
         type="email"
         input={ email }
-        name="Login"
+        name="email"
         placeholder="example@example.com"
         setter={ setEmail }
+        fieldName="Email:"
+        selector="email"
       />
 
       <GenericInput
         testId="common_login__input-password"
         type="password"
         input={ password }
-        name="Senha"
-        placeholder="Min. 6 digítos"
+        name="password"
+        placeholder="******"
         setter={ setPassword }
+        fieldName="Password:"
+        selector="password"
       />
       <Button
         dataTestId="common_login__button-login"
