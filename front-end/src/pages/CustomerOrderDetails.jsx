@@ -6,28 +6,30 @@ import OrderDetailsTotal from '../components/OrderDetailsTotal';
 import salesInfo from '../utils/saleMocks.json';
 
 function CustomerOrderDetails() {
-  const [data, setData] = useState([]);
+  return <div>foo</div>;
+  // const [data, setData] = useState([]);
 
-  useEffect(() => {
-    const prev = async () => {
-      const saleData = salesInfo;
-      setData(saleData);
-    };
-    prev();
-  }, []);
-  return (
-    <div>
-      <HeaderCustomer />
-      <OrderDetails
-        id={ data.id }
-        sellerName={ data.seller_name }
-        saleDate={ data.sale_date }
-        saleStatus={ data.status }
-      />
-      <OrderDetailsTable products={ data.salesProducts } />
-      <OrderDetailsTotal totalPrice={ data.total_price } />
-    </div>
-  );
+  // useEffect(() => {
+  //   const prev = async () => {
+  //     const saleData = salesInfo;
+  //     setData(saleData);
+  //   };
+  //   prev();
+  // }, []);
+
+  // return (
+  //   <div>
+  //     <HeaderCustomer />
+  //     <OrderDetails
+  //       id={ data.id }
+  //       sellerName={ data.seller_name }
+  //       saleDate={ data.sale_date }
+  //       saleStatus={ data.status }
+  //     />
+  //     <OrderDetailsTable products={ data.salesProducts } />
+  //     <OrderDetailsTotal totalPrice={ data.total_price } />
+  //   </div>
+  // );
 }
 
 export default CustomerOrderDetails;

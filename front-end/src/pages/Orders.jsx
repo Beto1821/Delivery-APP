@@ -6,10 +6,12 @@ import EmptyOrder from '../components/EmptyOrder';
 function Order() {
   const [data, setData] = useState(undefined);
   const { role } = JSON.parse(localStorage.getItem('user'));
+
   useEffect(() => {
     const fetchData = async () => {
       const response = await getOrders();
-      setData(response);
+      console.log(response);
+      setData(response.data);
     };
 
     fetchData();

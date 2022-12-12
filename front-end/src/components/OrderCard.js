@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function OrderCard(prefix, card) {
+function OrderCard({ prefix, card }) {
   const {
     sellerId,
     status,
@@ -62,10 +62,11 @@ OrderCard.propTypes = {
     sellerId: PropTypes.number.isRequired,
     status: PropTypes.string.isRequired,
     saleDate: PropTypes.string.isRequired,
-    totalPrice: PropTypes.number.isRequired,
+    totalPrice: PropTypes.string.isRequired,
     deliveryAddress: PropTypes.string.isRequired,
     deliveryNumber: PropTypes.string.isRequired,
   }).isRequired,
+  prefix: PropTypes.string.isRequired,
 };
 
 export default OrderCard;
