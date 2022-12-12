@@ -1,15 +1,5 @@
+import { getToken } from '../storage/userStorage';
 import api from './api';
-
-const getToken = () => {
-  const user = JSON.parse(localStorage.getItem('user'));
-  return user.token;
-};
-
-const config = {
-  headers: {
-    Authorization: getToken(),
-  },
-};
 
 export default async function postRegister({ name, email, password }) {
   try {
@@ -40,7 +30,11 @@ export async function postRegisterWithRole({ name, email, password, role }) {
 
 export async function getUsers() {
   try {
-    const response = await api.get('/user', config);
+    const response = await api.get('/user', {
+      headers: {
+        Authorization: getToken(),
+      },
+    });
 
     return response;
   } catch (error) {
@@ -50,7 +44,11 @@ export async function getUsers() {
 
 export async function deleteUser(id) {
   try {
-    const response = await api.delete(`/user/${id}`, config);
+    const response = await api.delete(`/user/${id}`, {
+      headers: {
+        Authorization: getToken(),
+      },
+    });
 
     return response;
   } catch (error) {

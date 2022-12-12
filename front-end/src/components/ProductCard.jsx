@@ -1,7 +1,7 @@
 import { PropTypes } from 'prop-types';
 import './ProductCard.css';
 
-function ProductCard({ product, addToCart, removeFromCart, quantity }) {
+function ProductCard({ product, addToCart, removeFromCart, quantity, handleChange }) {
   const { id, name, price, urlImage } = product;
   return (
     <div key={ id } className="containerItem">
@@ -39,7 +39,7 @@ function ProductCard({ product, addToCart, removeFromCart, quantity }) {
           id={ id }
           name={ name }
           value={ quantity }
-          onChange={ (event) => handleChangeInput(event) }
+          onChange={ (event) => handleChange(event, product) }
           type="text"
 
         />
@@ -55,6 +55,10 @@ function ProductCard({ product, addToCart, removeFromCart, quantity }) {
     </div>
   );
 }
+
+ProductCard.defaultProps = {
+  quantity: 0,
+};
 
 ProductCard.propTypes = {
   id: PropTypes.number,
