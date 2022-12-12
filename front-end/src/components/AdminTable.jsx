@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { deleteUser, getUsers } from '../service/userRequests';
 
-export default function AdminTable() {
+function AdminTable({ update }) {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
@@ -10,7 +11,7 @@ export default function AdminTable() {
       setUsers(data);
     };
     getAllUsers();
-  }, []);
+  }, [update]);
 
   const handleDeleteBtn = async (id) => {
     await deleteUser(id);
@@ -57,7 +58,7 @@ export default function AdminTable() {
                   {index + 1}
                 </td>
                 <td
-                  data-testid="admin_manage__input-email"
+                  data-testid={ `admin_manage__element-user-table-name-${index}` }
                 >
                   {user.name}
                 </td>
@@ -88,3 +89,9 @@ export default function AdminTable() {
     </div>
   );
 }
+
+AdminTable.propTypes = {
+  update: PropTypes.bool.isRequired,
+};
+
+export default AdminTable;

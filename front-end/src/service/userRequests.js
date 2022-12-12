@@ -21,6 +21,10 @@ export async function postRegisterWithRole({ name, email, password, role }) {
       email,
       password,
       role,
+    }, {
+      headers: {
+        Authorization: getToken(),
+      },
     });
     return response;
   } catch (error) {

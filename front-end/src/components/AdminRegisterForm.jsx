@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import Button from './Button';
 import ErrorMessage from './ErrorMessage';
 import GenericInput from './Input';
 import SelectInput from './SelectInput';
 import { postRegisterWithRole } from '../service/userRequests';
 
-export default function AdminRegisterForm() {
+function AdminRegisterForm({ updateList }) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -24,11 +25,13 @@ export default function AdminRegisterForm() {
   const disabledBtn = () => !(
     name.length >= minName && emailPattern.test(email) && password.length >= minPassword);
 
-  const register = async () => {
+  const register = async (e) => {
+    e.preventDefault();
     const result = await postRegisterWithRole({ name, email, password, role });
     if (!result.data) {
-      setResponse(result.response.data.message);
+      return setResponse(result.response.data.message);
     }
+    updateList();
   };
   return (
     <form>
@@ -83,9 +86,15 @@ export default function AdminRegisterForm() {
         onClick={ register }
       />
       <ErrorMessage
-        dataTest="admin_manage__element-invalid_register"
+        dataTest="admin_manage__element-invalid-register"
         message={ response }
       />
     </form>
   );
 }
+
+AdminRegisterForm.propTypes = {
+  updateList: PropTypes.func.isRequired,
+};
+
+export default AdminRegisterForm;

@@ -47,7 +47,7 @@ module.exports = {
     return res.sendStatus(204);
   },
 
-  async getSellers(req, res) {
+  async getSellers(_req, res) {
     const users = await userService.findByRole('seller');
 
     return res.status(200).json(users);

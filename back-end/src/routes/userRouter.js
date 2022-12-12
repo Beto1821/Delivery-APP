@@ -22,6 +22,7 @@ userRouter.get(
 
 userRouter.post(
   '/user',
+  verifyToken,
   userController.createUser,
 );
 
