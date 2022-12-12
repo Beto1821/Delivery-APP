@@ -1,14 +1,10 @@
 import propTypes from 'prop-types';
+import dateFormat from '../utils/dateFormat';
 
 const padId = (id) => {
   const padding = 4;
   return String(id).padStart(padding, '0');
 };
-
-const formatDate = (saleDate) => saleDate.replace(
-  /(\d{4})-(\d{2})-(\d{2}).+/,
-  '$3/$2/$1',
-);
 
 function OrderSummary({
   sale: {
@@ -36,7 +32,7 @@ function OrderSummary({
             `${testIdPrefix}__element-order-details-label-order-date`
           }
         >
-          {formatDate(saleDate)}
+          {dateFormat(saleDate)}
         </span>
         <span
           data-testid={
