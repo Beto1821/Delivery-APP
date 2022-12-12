@@ -1,8 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Button from './Button';
+import PropTypes from 'prop-types';
 
-function HeaderCustomer() {
+function HeaderCustomer(name) {
   return (
     <div>
       <Link to="/customer/products">
@@ -22,7 +23,7 @@ function HeaderCustomer() {
         />
       </Link>
       <h2 data-testid="customer_products__element-navbar-user-full-name">
-        Nome
+        { name }
       </h2>
       <Link to="/login">
         <Button
