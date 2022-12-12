@@ -1,7 +1,7 @@
 import React from 'react';
-import { PropTypes } from 'prop-types';
+import PropTypes from 'prop-types';
 
-function OrderDetailsTotal ({ totalPrice }) {
+function OrderDetailsTotal({ totalPrice }) {
   return (
     <div>
       <span
@@ -15,8 +15,8 @@ function OrderDetailsTotal ({ totalPrice }) {
   );
 }
 
-OrderDetailsTotal.protoTypes = {
-  totalPrice: PropTypes.number,
-}.isRequired;
+OrderDetailsTotal.propTypes = {
+  totalPrice: PropTypes.number.isRequired,
+};
 
 export default OrderDetailsTotal;

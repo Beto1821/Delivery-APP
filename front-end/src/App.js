@@ -10,7 +10,6 @@ import AdminManage from './pages/AdminManage';
 import SellerOrderDetails from './pages/SellerOrderDetails';
 import CustomerOrderDetails from './pages/CustomerOrderDetails';
 
-
 function App() {
   return (
     <LoginProvider>

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Button from './Button';
-import PropTypes from 'prop-types';
 
 function HeaderCustomer(name) {
   return (

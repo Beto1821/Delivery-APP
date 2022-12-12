@@ -1,7 +1,7 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
 
-function OrderDetails ({ id, sellerName, saleDate, saleStatus  }) {
+function OrderDetails({ id, sellerName, saleDate, saleStatus }) {
   return (
     <div>
       <span
@@ -20,7 +20,7 @@ function OrderDetails ({ id, sellerName, saleDate, saleStatus  }) {
       <span
         data-testid="customer_order_details__element-order-details-label-order-date"
       >
-        {  saleDate }
+        { saleDate }
       </span>
       <span
         data-testid="customer_order_details__element-order-details-label-delivery-status"
@@ -28,7 +28,8 @@ function OrderDetails ({ id, sellerName, saleDate, saleStatus  }) {
         { saleStatus }
       </span>
       <button
-        data-testid="customer_order_details__button-delivery-check" type="button"
+        data-testid="customer_order_details__button-delivery-check"
+        type="button"
       >
         MARCAR COMO ENTREGUE
       </button>
