@@ -1,19 +1,20 @@
 import { getToken } from '../storage/userStorage';
 import api from './api';
 
-export async function placeOrder({ sellerId, address, number }, products) {
+export async function placeOrder(
+  { sellerId, address, number },
+  { products, totalPrice },
+) {
   try {
+    console.log(products);
     const response = await api.post(
       '/sales',
       {
         sellerId,
         deliveryAddress: address,
         deliveryNumber: number,
-        totalPrice: products.reduce(
-          (prev, { quantity, price }) => prev + quantity * price,
-          0,
-        ),
-        products,
+        totalPrice,
+        products: Object.values(products),
       },
       {
         headers: {
@@ -23,6 +24,7 @@ export async function placeOrder({ sellerId, address, number }, products) {
     );
     return response;
   } catch (error) {
+    console.log(error);
     return error.response;
   }
 }

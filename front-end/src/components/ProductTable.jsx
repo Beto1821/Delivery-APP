@@ -1,4 +1,5 @@
 import propTypes from 'prop-types';
+import FormattedPrice from './FormattedPrice';
 import ProductTableCard from './ProductTableCard';
 
 function ProductTable({ products, removeProduct, testIdPrefix, totalPrice }) {
@@ -21,15 +22,16 @@ function ProductTable({ products, removeProduct, testIdPrefix, totalPrice }) {
               { ...product }
               testIdPrefix={ testIdPrefix }
               removeProduct={ removeProduct }
-              index={ i + 1 }
+              index={ i }
               key={ i }
             />
           ))}
         </tbody>
       </table>
-      <p data-testid={ `${testIdPrefix}__element-order-total-price` }>
-        {totalPrice}
-      </p>
+      <FormattedPrice
+        price={ totalPrice }
+        testid={ `${testIdPrefix}__element-order-total-price` }
+      />
     </section>
   );
 }

@@ -46,9 +46,8 @@ function Checkout() {
         address,
         number,
       },
-      cart.products,
+      cart,
     );
-
     if (response.status === OK_CODE) {
       localStorage.removeItem('cart');
       return history.push(`/customer/orders/${response.data.id}`);

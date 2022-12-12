@@ -5,7 +5,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Checkout from './pages/Checkout';
 import CustomerProducts from './pages/CustomerProducts';
-// import CustomerOrders from './pages/CustomerOrders';
+import CustomerOrders from './pages/CustomerOrders';
 import AdminManage from './pages/AdminManage';
 import SellerOrderDetails from './pages/SellerOrderDetails';
 
@@ -18,7 +18,7 @@ function App() {
         <Route path="/customer/products" component={ CustomerProducts } />
         <Route path="/customer/checkout" component={ Checkout } />
         <Route path="/seller/orders/:id" component={ SellerOrderDetails } />
-        {/* <Route path="customer/orders/:id" component={ OrderDetails } /> */}
+        <Route path="/customer/orders/:id" component={ CustomerOrders } />
         {/* <Route path="/seller/orders/" component={ SellerOrders } /> */}
         <Route path="/admin/manage" component={ AdminManage } />
         <Redirect from="/" to="/login" />

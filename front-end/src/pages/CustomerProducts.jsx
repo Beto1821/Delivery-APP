@@ -4,6 +4,7 @@ import { getAll } from '../service/products';
 import HeaderCustomer from '../components/HeaderCustomer';
 import ProductCard from '../components/ProductCard';
 import useLocalStorage from '../hooks/useLocalStorage';
+import FormattedPrice from '../components/FormattedPrice';
 
 // eslint-disable-next-line sonarjs/cognitive-complexity
 function CustomerProducts() {
@@ -101,9 +102,10 @@ function CustomerProducts() {
         <p>
           Total
           {' '}
-          <span data-testid="customer_products__checkout-bottom-value">
-            { String(cart.totalPrice).replace('.', ',') }
-          </span>
+          <FormattedPrice
+            testid="customer_products__checkout-bottom-value"
+            price={ cart.totalPrice }
+          />
         </p>
       </div>
     </div>

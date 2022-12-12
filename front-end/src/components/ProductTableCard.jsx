@@ -1,4 +1,5 @@
 import propTypes from 'prop-types';
+import numberFormat from '../utils/numberFormat';
 import Button from './Button';
 
 function ProductTableCard({
@@ -15,7 +16,7 @@ function ProductTableCard({
       <td
         data-testid={ `${testIdPrefix}__element-order-table-item-number-${index}` }
       >
-        {index}
+        {index + 1}
       </td>
       <td data-testid={ `${testIdPrefix}__element-order-table-name-${index}` }>
         {name}
@@ -28,12 +29,12 @@ function ProductTableCard({
       <td
         data-testid={ `${testIdPrefix}__element-order-table-unit-price-${index}` }
       >
-        {price}
+        {numberFormat.format(price)}
       </td>
       <td
         data-testid={ `${testIdPrefix}__element-order-table-sub-total-${index}` }
       >
-        {price * quantity}
+        {numberFormat.format(price * quantity)}
       </td>
       {removeProduct && (
         <td
