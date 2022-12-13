@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import OrderCard from '../components/OrderCard';
 import { getOrders } from '../service/requests';
 import EmptyOrder from '../components/EmptyOrder';
+import useLocalStorage from '../hooks/useLocalStorage';
 
 function Order() {
   const [data, setData] = useState(undefined);
-  const { role } = JSON.parse(localStorage.getItem('user'));
+  const [{ role }] = useLocalStorage('user', {});
 
   useEffect(() => {
     const fetchData = async () => {
@@ -27,7 +28,12 @@ function Order() {
       <div>
         { data
           ? data.map((card, index) => (
-            <OrderCard prefix={ setPrefix(role) } card={ card } key={ index } />))
+            <OrderCard
+              prefix={ setPrefix(role) }
+              card={ card }
+              key={ index }
+              role={ role }
+            />))
           : <EmptyOrder /> }
       </div>
     </div>

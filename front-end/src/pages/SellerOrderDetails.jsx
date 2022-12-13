@@ -46,7 +46,11 @@ function SellerOrderDetails() {
           onClick={ handleDelivering }
         />
       </OrderSummary>
-      <ProductTable products={ sale.products } testIdPrefix={ testIdPrefix } />
+      <ProductTable
+        products={ sale.products }
+        testIdPrefix={ testIdPrefix }
+        totalPrice={ sale.totalPrice }
+      />
     </main>
   ) : (
     <p>loading</p>

@@ -38,7 +38,7 @@ function Login() {
         break;
 
       case 'seller':
-        history.push('/seller/orders/');
+        history.push('/seller/orders');
         break;
 
       case 'administrator':

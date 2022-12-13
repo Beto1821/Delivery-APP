@@ -1,8 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import useLogout from '../hooks/useLogout';
 import Button from './Button';
 
 function HeaderCustomer() {
+  const logout = useLogout();
+
   return (
     <div>
       <Link to="/customer/products">
@@ -30,8 +33,8 @@ function HeaderCustomer() {
           type="button"
           name="logout"
           text="SAIR "
+          onClick={ logout }
         />
-
       </Link>
     </div>
   );

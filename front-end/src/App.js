@@ -22,7 +22,7 @@ function App() {
         <Route path="/seller/orders/:id" component={ SellerOrderDetails } />
         <Route path="/customer/orders/:id" component={ CustomerOrderDetails } />
         <Route path="/customer/orders/" component={ Order } />
-        <Route path="/seller/orders/" component={ Order } />
+        <Route path="/seller/orders" component={ Order } />
         <Route path="/admin/manage" component={ AdminManage } />
         <Redirect from="/" to="/login" />
       </Switch>

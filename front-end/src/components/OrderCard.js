@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import dateFormat from '../utils/dateFormat';
 import FormattedPrice from './FormattedPrice';
 
-function OrderCard({ prefix, card }) {
+function OrderCard({ prefix, card, role }) {
   const {
     id,
     status,
@@ -14,7 +14,7 @@ function OrderCard({ prefix, card }) {
     deliveryNumber,
   } = card;
   return (
-    <Link to={ `/customer/orders/${id}` }>
+    <Link to={ `/${role}/orders/${id}` }>
       <h3
         className="id-content"
         data-testid={ `${prefix}__element-order-id-${id}` }
@@ -72,6 +72,7 @@ OrderCard.propTypes = {
     deliveryNumber: PropTypes.string.isRequired,
   }).isRequired,
   prefix: PropTypes.string.isRequired,
+  role: PropTypes.string.isRequired,
 };
 
 export default OrderCard;
