@@ -1,5 +1,6 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
+import dateFormat from '../utils/dateFormat';
 
 function OrderDetails({ id, sellerName, saleDate, saleStatus }) {
   return (
@@ -20,7 +21,7 @@ function OrderDetails({ id, sellerName, saleDate, saleStatus }) {
       <span
         data-testid="customer_order_details__element-order-details-label-order-date"
       >
-        { saleDate }
+        { dateFormat(saleDate) }
       </span>
       <span
         data-testid="customer_order_details__element-order-details-label-delivery-status"
@@ -30,6 +31,7 @@ function OrderDetails({ id, sellerName, saleDate, saleStatus }) {
       <button
         data-testid="customer_order_details__button-delivery-check"
         type="button"
+        disabled={ saleStatus !== 'EM TRÂNSITO' }
       >
         MARCAR COMO ENTREGUE
       </button>

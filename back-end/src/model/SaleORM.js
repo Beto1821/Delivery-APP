@@ -1,4 +1,4 @@
-const { sequelize, Sale, SaleProduct, Product } = require('../database/models');
+const { sequelize, Sale, SaleProduct, Product, User } = require('../database/models');
 
 const mapSaleProduct = ({ id: productId, quantity }, saleId) => ({
   productId,
@@ -44,15 +44,18 @@ const findByPk = async (id) => {
         as: 'products',
         through: { attributes: ['quantity'], as: 'info' },
       },
+      {
+        model: User,
+        as: 'seller',
+        attributes: { exclude: ['password'] },
+      },
     ],
   });
 
-  return (
-    response && {
+  return response && {
       ...response.dataValues,
       products: response.dataValues.products.map(extractQuantityFromProduct),
-    }
-  );
+    };
 };
 
 const findBySeller = async (sellerId) => {

@@ -61,7 +61,7 @@ ProductTableCard.propTypes = {
   removeProduct: propTypes.func,
   id: propTypes.number.isRequired,
   name: propTypes.string.isRequired,
-  price: propTypes.number.isRequired,
+  price: propTypes.string.isRequired,
   index: propTypes.number.isRequired,
   quantity: propTypes.number.isRequired,
   testIdPrefix: propTypes.string.isRequired,

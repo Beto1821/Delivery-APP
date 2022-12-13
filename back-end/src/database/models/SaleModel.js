@@ -35,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
     });
     Sale.belongsTo(models.User, {
       foreignKey: 'sellerId',
-      as: 'sales',
+      as: 'seller',
     });
   };
 
