@@ -35,7 +35,7 @@ function SellerOrderDetails() {
           dataTestId={ `${testIdPrefix}__button-preparing-check` }
           text="PREPARAR PEDIDO"
           type="button"
-          disabled={ sale.status !== 'PENDENTE' }
+          disabled={ sale.status !== 'Pendente' }
           onClick={ handleProcessing }
         />
         <Button
