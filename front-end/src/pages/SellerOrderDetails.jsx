@@ -4,6 +4,7 @@ import OrderSummary from '../components/OrderSummary';
 import ProductTable from '../components/ProductTable';
 import Button from '../components/Button';
 import { getSale, markSaleAs } from '../service/saleRequests';
+import HeaderSeller from '../components/Header/HeaderSeller';
 
 function SellerOrderDetails() {
   const { id } = useParams();
@@ -30,6 +31,7 @@ function SellerOrderDetails() {
 
   return sale ? (
     <main>
+      <HeaderSeller />
       <OrderSummary sale={ sale } testIdPrefix={ testIdPrefix }>
         <Button
           dataTestId={ `${testIdPrefix}__button-preparing-check` }

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getAll } from '../service/products';
-import HeaderCustomer from '../components/HeaderCustomer';
+import HeaderCustomer from '../components/Header/HeaderCustomer';
 import ProductCard from '../components/ProductCard';
 import useLocalStorage from '../hooks/useLocalStorage';
 import FormattedPrice from '../components/FormattedPrice';

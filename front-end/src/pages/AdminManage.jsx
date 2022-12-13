@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import AdminRegisterForm from '../components/AdminRegisterForm';
 import AdminTable from '../components/AdminTable';
-
-// import HeaderAdmin from '../components/HeaderAdmin';
+import HeaderAdmin from '../components/Header/HeaderAdmin';
 
 export default function AdminManage() {
   const [update, setUpdate] = useState(false);
@@ -10,7 +9,7 @@ export default function AdminManage() {
 
   return (
     <div>
-      {/* <HeaderAdmin /> */}
+      <HeaderAdmin />
       <AdminRegisterForm
         updateList={ () => setUpdate((prev) => !prev) }
       />

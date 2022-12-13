@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import HeaderCustomer from '../components/HeaderCustomer';
+import HeaderCustomer from '../components/Header/HeaderCustomer';
 import OrderDetails from '../components/OrderDetails';
 import ProductTable from '../components/ProductTable';
 import { getSale } from '../service/saleRequests';

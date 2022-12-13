@@ -3,6 +3,8 @@ import OrderCard from '../components/OrderCard';
 import { getOrders } from '../service/requests';
 import EmptyOrder from '../components/EmptyOrder';
 import useLocalStorage from '../hooks/useLocalStorage';
+import HeaderCustomer from '../components/Header/HeaderCustomer';
+import HeaderSeller from '../components/Header/HeaderSeller';
 
 function Order() {
   const [data, setData] = useState(undefined);
@@ -25,6 +27,7 @@ function Order() {
 
   return (
     <div>
+      { role === 'seller' ? <HeaderSeller /> : <HeaderCustomer />}
       <div>
         { data
           ? data.map((card, index) => (
