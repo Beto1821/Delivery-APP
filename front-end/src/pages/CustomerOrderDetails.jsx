@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import HeaderCustomer from '../components/Header/HeaderCustomer';
 import OrderDetails from '../components/OrderDetails';
 import ProductTable from '../components/ProductTable';
-import { getSale } from '../service/saleRequests';
+import { getSale, markSaleAs } from '../service/saleRequests';
 
 function CustomerOrderDetails() {
   const { id } = useParams();
@@ -18,6 +18,11 @@ function CustomerOrderDetails() {
     prev();
   }, [id]);
 
+  const handleReceiving = async () => {
+    const response = await markSaleAs('delivered', id);
+    setData(response.data);
+  };
+
   return data ? (
     <div>
       <HeaderCustomer />
@@ -26,6 +31,7 @@ function CustomerOrderDetails() {
         sellerName={ data.seller.name }
         saleDate={ data.saleDate }
         saleStatus={ data.status }
+        handleReceiving={ handleReceiving }
       />
       <ProductTable
         products={ data.products }

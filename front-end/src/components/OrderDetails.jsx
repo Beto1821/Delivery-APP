@@ -2,7 +2,7 @@ import React from 'react';
 import { PropTypes } from 'prop-types';
 import dateFormat from '../utils/dateFormat';
 
-function OrderDetails({ id, sellerName, saleDate, saleStatus }) {
+function OrderDetails({ id, sellerName, saleDate, saleStatus, handleReceiving }) {
   return (
     <div>
       <span
@@ -31,6 +31,7 @@ function OrderDetails({ id, sellerName, saleDate, saleStatus }) {
       <button
         data-testid="customer_order_details__button-delivery-check"
         type="button"
+        onClick={ handleReceiving }
         disabled={ saleStatus !== 'Em Trânsito' }
       >
         MARCAR COMO ENTREGUE
@@ -44,6 +45,7 @@ OrderDetails.propTypes = {
   sellerName: PropTypes.string,
   saleDate: PropTypes.string,
   saleStatus: PropTypes.string,
+  handleReceiving: PropTypes.func,
 }.isRequired;
 
 export default OrderDetails;
