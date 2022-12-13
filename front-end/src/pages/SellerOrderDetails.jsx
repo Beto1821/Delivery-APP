@@ -44,7 +44,7 @@ function SellerOrderDetails() {
           dataTestId={ `${testIdPrefix}__button-dispatch-check` }
           text="SAIU PARA ENTREGA"
           type="button"
-          disabled={ sale.status !== 'PREPARANDO' }
+          disabled={ sale.status !== 'Preparando' }
           onClick={ handleDelivering }
         />
       </OrderSummary>

@@ -12,19 +12,19 @@ saleRouter.put(
   '/:id/processing',
   verifyToken,
   restrictAccessByRole(['seller']),
-  saleController.updateStatus('PREPARANDO'),
+  saleController.updateStatus('Preparando'),
 );
 saleRouter.put(
   '/:id/delivering',
   verifyToken,
   restrictAccessByRole(['seller']),
-  saleController.updateStatus('EM TRÂNSITO'),
+  saleController.updateStatus('Em Trânsito'),
 );
 saleRouter.put(
   '/:id/delivered',
   verifyToken,
   restrictAccessByRole(['customer']),
-  saleController.updateStatus('ENTREGUE'),
+  saleController.updateStatus('Entregue'),
 );
 
 saleRouter.get('/:id', verifyToken, saleController.findSaleById);

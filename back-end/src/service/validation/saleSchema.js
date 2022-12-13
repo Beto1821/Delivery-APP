@@ -18,7 +18,7 @@ const newSaleSchema = Joi.object({
 });
 
 const statusSchema = Joi.string()
-  .allow('PREPARANDO', 'EM TRÂNSITO', 'ENTREGUE')
+  .allow('Preparando', 'Em Trânsito', 'Entregue')
   .required();
 
 module.exports = {

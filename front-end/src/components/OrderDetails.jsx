@@ -31,7 +31,7 @@ function OrderDetails({ id, sellerName, saleDate, saleStatus }) {
       <button
         data-testid="customer_order_details__button-delivery-check"
         type="button"
-        disabled={ saleStatus !== 'EM TRÂNSITO' }
+        disabled={ saleStatus !== 'Em Trânsito' }
       >
         MARCAR COMO ENTREGUE
       </button>
