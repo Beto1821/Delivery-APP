@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 function GenericInput({
+  className,
   testId,
   type,
   input,
@@ -10,18 +11,22 @@ function GenericInput({
   setter,
   fieldName }) {
   return (
-    <label htmlFor={ testId }>
-      { fieldName }
-      <input
-        id={ testId }
-        data-testid={ testId }
-        type={ type }
-        value={ input }
-        fieldname={ name }
-        placeholder={ placeholder }
-        onChange={ (event) => setter(event.target.value) }
-      />
-    </label>
+    <div className="mb-6">
+      <label className="block text-gray-400 text-sm font-bold mb-2" htmlFor={ testId }>
+        { fieldName }
+        <input
+          className={ className }
+          id={ testId }
+          data-testid={ testId }
+          type={ type }
+          value={ input }
+          fieldname={ name }
+          placeholder={ placeholder }
+          onChange={ (event) => setter(event.target.value) }
+        />
+      </label>
+
+    </div>
   );
 }
 
@@ -30,6 +35,7 @@ GenericInput.defaultProps = {
 };
 
 GenericInput.propTypes = {
+  className: PropTypes.string.isRequired,
   testId: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   input: PropTypes.string.isRequired,

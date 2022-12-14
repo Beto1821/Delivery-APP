@@ -1,14 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function ErrorMessage({ dataTest, message }) {
+function ErrorMessage({ className, dataTest, message }) {
   return (
     message && (
-      <p
-        data-testid={ dataTest }
-      >
-        { message }
-      </p>
+      <div className={ className }>
+        <p
+          data-testid={ dataTest }
+        >
+          { message }
+        </p>
+      </div>
     )
   );
 }
@@ -18,6 +20,7 @@ ErrorMessage.defaultProps = {
 };
 
 ErrorMessage.propTypes = {
+  className: PropTypes.string.isRequired,
   dataTest: PropTypes.string.isRequired,
   message: PropTypes.string,
 };

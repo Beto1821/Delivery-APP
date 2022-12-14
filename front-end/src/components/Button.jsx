@@ -1,27 +1,32 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function Button({ dataTestId, type, name, disabled, onClick, text }) {
+function Button({ className, dataTestId, type, name, disabled, onClick, text }) {
   return (
-    <button
-      data-testid={ dataTestId }
-      type={ type === 'submit' ? 'submit' : 'button' }
-      name={ name }
-      disabled={ disabled }
-      onClick={ onClick }
-    >
-      { text }
-    </button>
+    <div className="flex items-center justify-between">
+      <button
+        className={ className }
+        data-testid={ dataTestId }
+        type={ type === 'submit' ? 'submit' : 'button' }
+        name={ name }
+        disabled={ disabled }
+        onClick={ onClick }
+      >
+        {text}
+      </button>
+
+    </div>
   );
 }
 
 Button.defaultProps = {
   name: undefined,
   disabled: false,
-  onClick: () => {},
+  onClick: () => { },
 };
 
 Button.propTypes = {
+  className: PropTypes.string.isRequired,
   dataTestId: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   name: PropTypes.string,

@@ -56,49 +56,64 @@ function Login() {
   }, [user, history]);
 
   return (
-    <form>
-      <GenericInput
-        testId="common_login__input-email"
-        type="email"
-        input={ email }
-        name="email"
-        placeholder="example@example.com"
-        setter={ setEmail }
-        fieldName="Email:"
-        selector="email"
-      />
-
-      <GenericInput
-        testId="common_login__input-password"
-        type="password"
-        input={ password }
-        name="password"
-        placeholder="******"
-        setter={ setPassword }
-        fieldName="Password:"
-        selector="password"
-      />
-      <Button
-        dataTestId="common_login__button-login"
-        type="submit"
-        name="login"
-        onClick={ handleButton }
-        disabled={ disabledBtn() }
-        text="Login"
-      />
-      <Link to="/register">
-        <Button
-          dataTestId="common_login__button-register"
-          type="submit"
-          name="register"
-          text="Ainda não tenho conta"
+    <div className="grid h-screen place-items-center bg-gray-300">
+      <form className="bg-yellow-300 shadow-xl rounded px-20 pt-20 pb-20 mb-10">
+        <GenericInput
+          className="shadow appearance-none border rounded w-full py-2 px-3
+          text-gray-400 leading-tight"
+          testId="common_login__input-email"
+          type="email"
+          input={ email }
+          name="email"
+          placeholder="example@example.com"
+          setter={ setEmail }
+          fieldName="Email:"
+          selector="email"
         />
-      </Link>
-      <ErrorMessage
-        dataTest="common_login__element-invalid-email"
-        message={ response.message }
-      />
-    </form>
+
+        <GenericInput
+          className="shadow appearance-none border rounded w-full py-2 px-3
+          text-gray-400 leading-tight "
+          testId="common_login__input-password"
+          type="password"
+          input={ password }
+          name="password"
+          placeholder="******"
+          setter={ setPassword }
+          fieldName="Password:"
+          selector="password"
+        />
+        <div className="flex items-center justify-between">
+          <Button
+            className="bg-white hover:bg-gray-200 text-yellow-500
+            font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            dataTestId="common_login__button-login"
+            type="submit"
+            name="login"
+            onClick={ handleButton }
+            disabled={ disabledBtn() }
+            text="Login"
+          />
+          <Link to="/register">
+            <Button
+              className="inline-block align-baseline font-bold py-2 px-4 ml-5
+              text-white hover:text-yellow-500 hover:bg-white rounded"
+              dataTestId="common_login__button-register"
+              type="submit"
+              name="register"
+              text="Ainda não tenho conta"
+            />
+          </Link>
+
+        </div>
+        <ErrorMessage
+          className="inline-block align-baseline font-bold text-sm
+          text-gray-400 mt-5"
+          dataTest="common_login__element-invalid-email"
+          message={ response.message }
+        />
+      </form>
+    </div>
   );
 }
 
