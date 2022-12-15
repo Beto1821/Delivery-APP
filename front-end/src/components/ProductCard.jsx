@@ -4,8 +4,11 @@ import './ProductCard.css';
 function ProductCard({ product, setProductQuantity, quantity }) {
   const { id, name, price, urlImage } = product;
   return (
-    <div key={ id } className="containerItem">
-      <span>
+    <div
+      key={ id }
+      className="rounded-md shadow border grid grid-cols-1 w-60 h-80 bg-white font-sans"
+    >
+      <span className="block ml-auto mr-auto mt-5">
         R$
         {' '}
         <span data-testid={ `customer_products__element-card-price-${id}` }>
@@ -13,14 +16,18 @@ function ProductCard({ product, setProductQuantity, quantity }) {
         </span>
       </span>
       <img
+        className="block ml-auto mr-auto h-40 w-26"
         data-testid={ `customer_products__img-card-bg-image-${id}` }
         src={ urlImage }
         alt={ name }
       />
-      <span data-testid={ `customer_products__element-card-title-${id}` }>
+      <span
+        className="block ml-auto mr-auto"
+        data-testid={ `customer_products__element-card-title-${id}` }
+      >
         {name}
       </span>
-      <div>
+      <div className="block ml-auto mr-auto">
         <button
           onClick={ () => setProductQuantity(product, (prev) => prev - 1) }
           type="button"
@@ -29,6 +36,7 @@ function ProductCard({ product, setProductQuantity, quantity }) {
           -
         </button>
         <input
+          className=""
           data-testid={ `customer_products__input-card-quantity-${id}` }
           id={ id }
           name={ name }

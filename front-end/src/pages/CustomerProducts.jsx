@@ -45,9 +45,13 @@ function CustomerProducts() {
   }, []);
 
   return products ? (
-    <div className="cardContainer">
+    <div className="bg-gray-200">
       <HeaderCustomer />
-      <div className="cards">
+      <div
+        className="max-w-1l
+        grid sm:grid-cols-3 md:grid-cols-4
+        gap-10 basis-full ml-14"
+      >
         {products.length && products.map((product) => (
           <ProductCard
             key={ product.id }
@@ -57,8 +61,9 @@ function CustomerProducts() {
           />
         ))}
       </div>
-      <div>
+      <div className="py-20 px-80 flex justify-center font-sans ">
         <button
+          className="hover:font-bold"
           data-testid="customer_products__button-cart"
           type="button"
           disabled={ Object.values(cart.products).length === 0 }
@@ -67,7 +72,7 @@ function CustomerProducts() {
             Ver Carrinho
           </Link>
         </button>
-        <div>
+        <div className="px-40">
           Total
           {' '}
           <FormattedPrice

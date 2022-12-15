@@ -46,7 +46,7 @@ function Register() {
         </h1>
         <GenericInput
           className="shadow appearance-none border rounded w-full py-2 px-3
-          text-gray-400"
+          text-gray-300"
           testId="common_register__input-name"
           type="name"
           input={ name }

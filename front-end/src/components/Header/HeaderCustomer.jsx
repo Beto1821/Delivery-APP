@@ -15,6 +15,7 @@ function HeaderCustomer() {
     >
       <Link to="/customer/orders">
         <Button
+          className="text-white rounded-sm shadow-sm text-lg w-40 h-8"
           dataTestId="customer_products__element-navbar-link-orders"
           type="button"
           name="orders"
